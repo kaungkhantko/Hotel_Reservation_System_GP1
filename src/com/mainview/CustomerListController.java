@@ -68,7 +68,7 @@ public class CustomerListController implements Initializable {
 	    @FXML private TableColumn<?, ?> ColumnCheckOutD;
     //*************************************************//
     
-	int i;
+	int i=1;
 	String name;
     String phNo;
 	String roomNo;
