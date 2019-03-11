@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -35,7 +39,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
-public class CustomerListController implements Initializable {
+public class CustomerListController implements Initializable{
 	
 	String sql_all = "SELECT Reserved_Room.RoomNo, Customer.CustomerName, Customer.PhoneNumber1,"
           		+ " Reservation_Details.ReservedTime, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate"
@@ -72,6 +76,7 @@ public class CustomerListController implements Initializable {
 	String name;
     String phNo;
 	String roomNo;
+	String dateIn, dateOut;
 		
 	    
     @FXML
@@ -243,9 +248,5 @@ public class CustomerListController implements Initializable {
 			loadData(sql_all);	
 		}
    //*********************************************************************//
-
-
-
-
 
 }
