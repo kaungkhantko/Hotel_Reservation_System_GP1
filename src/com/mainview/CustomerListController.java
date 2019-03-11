@@ -186,6 +186,9 @@ public class CustomerListController implements Initializable {
 			if (RoomNoTBox.getText().trim().isEmpty()) {}
 			else
 				sql = sql.concat(" AND RoomNo = " + roomNo);
+			
+			sql = sql.concat(" ORDER BY CustomerName");
+			
 		   	try(Connection c = SqliteConnection.Connector();
 		   	PreparedStatement preparedStatement = c.prepareStatement(sql);
 		   	ResultSet rs = preparedStatement.executeQuery();)
