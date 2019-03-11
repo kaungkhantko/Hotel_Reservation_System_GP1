@@ -211,14 +211,15 @@
                <children>
                   <TableView fx:id="reserveList" prefHeight="312.0" prefWidth="789.0">
                      <columns>
-                        <TableColumn fx:id="ReserveColRoomNo" prefWidth="71.70562744140625" text="Room No" />
-                        <TableColumn fx:id="ReserveColRoomType" prefWidth="119.29437255859375" text="Room Type" />
-                        <TableColumn fx:id="ReserveColCost" prefWidth="96.4141845703125" text="Cost" />
-                        <TableColumn fx:id="ReserveColExtraBed" prefWidth="88.76617431640625" text="Extra Beds" />
-                        <TableColumn fx:id="ReserveColPeople" prefWidth="67.82537841796875" text="Person" />
-                        <TableColumn prefWidth="125.41278076171875" text="Check in Date" />
-                        <TableColumn prefWidth="113.58721923828125" text="Check out Date" />
-                        <TableColumn prefWidth="103.41265869140625" text="Total" />
+                        <TableColumn fx:id="ReserveColRoomNo" prefWidth="56.0" text="Room " />
+                        <TableColumn fx:id="ReserveColRoomType" prefWidth="120.0" text="Type" />
+                        <TableColumn fx:id="ReserveColCost" prefWidth="90.0" text="Cost" />
+                        <TableColumn fx:id="ReserveColExtraBed" prefWidth="82.0" text="Extra Beds" />
+                        <TableColumn fx:id="ReserveColBedValue" prefWidth="69.0" />
+                        <TableColumn fx:id="ReserveColPeople" prefWidth="52.0" text="Person" />
+                        <TableColumn fx:id="ReserveColCinDate" prefWidth="112.0" text="Check in Date" />
+                        <TableColumn fx:id="ReserveColCoutDate" prefWidth="112.0" text="Check out Date" />
+                        <TableColumn fx:id="ReserveColTotal" prefWidth="98.0" text="Total" />
                      </columns>
                   </TableView>
                </children>
