@@ -299,9 +299,17 @@ public class RoomsController implements Initializable {
 	    public void reset() {
 	    	i=1;
 	    	roomTable.getItems().clear();
+	    	
 	        DateInTBox.setValue(LocalDate.now());
 	    	DateOutTBox.setValue(LocalDate.now());
+	    	
 	    	RoomTypeCombo.setValue("Any");
+	    	
+	    	stringDateIn=(DateInTBox.getValue()).format(formatter); 
+	    	stringDateOut=(DateOutTBox.getValue()).format(formatter);
+	    	   
+	    	dateIn = LocalDate.parse(stringDateIn, formatter);
+	    	dateOut =  LocalDate.parse(stringDateOut, formatter);
 	    	loadData(sql_all);
 	    }
 	    //*********************************************************//  
