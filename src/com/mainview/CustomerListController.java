@@ -142,6 +142,7 @@ public class CustomerListController implements Initializable {
 				addBookedList();
     }
 	    @FXML void Reset(ActionEvent event) {
+	    	i=1;
 			setCellTable();
 			Customerdata = FXCollections.observableArrayList();
 			loadData(sql_all);	
@@ -176,18 +177,18 @@ public class CustomerListController implements Initializable {
 			
 			
 			String sql = sql_input;
-			name = "'" + NameTBox.getText() + "'";
-			roomNo = "'" + RoomNoTBox.getText() + "'";
-			phNo = "'" + PhNoTBox.getText() + "'";
+			name = "'%" + NameTBox.getText() + "%'";
+			roomNo = "'%" + RoomNoTBox.getText() + "%'";
+			phNo = "'%" + PhNoTBox.getText() + "%'";
 			
 			
 			if (NameTBox.getText().trim().isEmpty()) {}
 			else
-				sql = sql.concat(" AND CustomerName = " + name);
+				sql = sql.concat(" AND CustomerName LIKE " + name);
 			
 			if (PhNoTBox.getText().trim().isEmpty()) {}
 			else
-				sql = sql.concat(" AND PhoneNumber1 = " + phNo);
+				sql = sql.concat(" AND PhoneNumber1 LIKE " + phNo);
 			
 			if (RoomNoTBox.getText().trim().isEmpty()) {}
 			else
