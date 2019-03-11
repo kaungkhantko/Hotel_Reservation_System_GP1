@@ -163,9 +163,7 @@ public class RoomsController implements Initializable {
         DateInTBox.setValue(LocalDate.now());
     	DateOutTBox.setValue(LocalDate.now());
 		fillComboBox();
-		setCellTable();
-		
-		
+		setCellTable();		
 		
 		//Pop up window appearing
 		roomTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -214,7 +212,7 @@ public class RoomsController implements Initializable {
 			String sql = sql_input;
 			chosenType = RoomTypeCombo.getValue();
 			
-			if (chosenType != null)
+			if (chosenType != "Any")
 				sql = sql.concat("AND RoomType = "+ "'" + chosenType + "'");
 			sql = sql.concat("GROUP BY Room.RoomNo\n ORDER BY Reserved_Room.CheckOutDate DESC ");
 
@@ -244,7 +242,7 @@ public class RoomsController implements Initializable {
 		   	     roomTable.setItems(data);
 		}
 	    public void fillComboBox() {
-	    	
+	    	RoomTypeCombo.getItems().add("Any");
 	    	    String sql  = "SELECT RoomType from Room_Type";
 		   	       try(Connection c = SqliteConnection.Connector();
 		   	    	   PreparedStatement preparedStatement = c.prepareStatement(sql);
@@ -260,7 +258,8 @@ public class RoomsController implements Initializable {
 		   	        
 		   	       catch (SQLException ex){
 		   	    	   	 ex.printStackTrace();
-			       } 
+			       }
+		   	 RoomTypeCombo.setValue("Any");
 	    }
 	    public void fetchData() throws IOException {
 	    	
@@ -297,7 +296,14 @@ public class RoomsController implements Initializable {
 			else
 				availability = "Available";
 	    }
-
+	    public void reset() {
+	    	i=1;
+	    	roomTable.getItems().clear();
+	        DateInTBox.setValue(LocalDate.now());
+	    	DateOutTBox.setValue(LocalDate.now());
+	    	RoomTypeCombo.setValue("Any");
+	    	loadData(sql_all);
+	    }
 	    //*********************************************************//  
 	
 	   
