@@ -200,6 +200,7 @@
                         <Label layoutX="210.0" layoutY="69.0" text="Check out Date" textFill="WHITE" />
                         <Button layoutX="651.0" layoutY="64.0" mnemonicParsing="false" onAction="#Search" prefHeight="26.0" prefWidth="85.0" text="Search" />
                         <ComboBox fx:id="RoomTypeCombo" layoutX="26.0" layoutY="19.0" prefWidth="150.0" promptText=" Room Type" />
+                        <Button fx:id="resetBtn" layoutX="651.0" layoutY="19.0" mnemonicParsing="false" onAction="#reset" prefHeight="26.0" prefWidth="85.0" text="Reset" />
                      </children>
                   </AnchorPane>
                </children>

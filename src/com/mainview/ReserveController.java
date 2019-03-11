@@ -42,11 +42,10 @@ import javafx.stage.Stage;
 	    @FXML private TableColumn<?,?> ReserveColRoomType;
 	    @FXML private TableColumn<?, ?> ReserveColCost;
 	    @FXML private TableColumn<?, ?> ReserveColExtraBed;
-	    @FXML private TableColumn<?, ?> ReserveColBedValue;
 	    @FXML private TableColumn<?, ?> ReserveColPeople;
-	    @FXML private TableColumn<?, ?> ReserveColCinDate;
-	    @FXML private TableColumn<?, ?> ReserveColCoutDate;
-	    @FXML  private TableColumn<?, ?> ReserveColTotal;
+	//  @FXML private TableColumn<?, ?> ReserveColCinDate;
+	//  @FXML private TableColumn<?, ?> ReserveCoutDate;
+	  //@FXML  private TableColumn<Room, ?> ReserveColTotal;
   //***************************************************//
 
 		    
@@ -54,6 +53,13 @@ import javafx.stage.Stage;
 	    
 		@FXML public static ObservableList<RoomTemp> Reservedata;
 	    
+		  
+		  
+	    
+	    //******************** Getter & Setter Methods************//
+
+		//**************************************************************//
+		
 		
 		
 	  //*************************** Show Side Bar *************************//
@@ -101,24 +107,24 @@ import javafx.stage.Stage;
 	
     //**********Receiving data from UI and Inserting into DB********//
 	
-		SQLinsert sqlInsert = new SQLinsert();
-				
-		CustomerTable cL = new CustomerTable(null, null, null, null, null);
+			SQLinsert sqlInsert = new SQLinsert();
+			
+	CustomerTable cL = new CustomerTable(null, null, null, null, null, 0, 0, 0, null, null, null, null, false);
+
+	cL.setcName(cName.getText());
+	cL.setcNRC(cNRC.getText());;
+	cL.setcPhNo1(cPhNo1.getText());
+	cL.setcPhNo2(cPhNo2.getText());
+	cL.setcEmail(cEmail.getText());;
 	
-		cL.setcName(cName.getText());
-		cL.setcNRC(cNRC.getText());;
-		cL.setcPhNo1(cPhNo1.getText());
-		cL.setcPhNo2(cPhNo2.getText());
-		cL.setcEmail(cEmail.getText());;
-		
-		cName.clear();
-		cNRC.clear();
-		cPhNo1.clear();
-		cPhNo2.clear();
-		cEmail.clear();
-		
-	    //inserting into db
-		sqlInsert.insertCinfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail());
+	cName.clear();
+	cNRC.clear();
+	cPhNo1.clear();
+	cPhNo2.clear();
+	cEmail.clear();
+	
+	//inserting into db
+	sqlInsert.insertCinfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail());
 }
 	    @FXML public void addRoom(ActionEvent event) throws IOException {
 	    	Parent home_page_parent = FXMLLoader.load(getClass().getResource("Rooms.fxml") );
@@ -137,7 +143,6 @@ import javafx.stage.Stage;
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			
-			System.out.println("Reserve Initializable");
 			Reservedata = FXCollections.observableArrayList();
 			loadData();
 			setCellTable2();
@@ -146,25 +151,20 @@ import javafx.stage.Stage;
 		
 		
 		//**********************Other Methods*******************//
-		public void setCellTable2() {
-			
-			
-			System.out.println("Value accepted from rooms");
-			System.out.println();
-			ReserveColRoomNo.setCellValueFactory(new PropertyValueFactory<>("RoomNo"));
-			ReserveColRoomType.setCellValueFactory(new PropertyValueFactory<>("RoomType"));
-			ReserveColCost.setCellValueFactory(new PropertyValueFactory<>("Cost"));
-			ReserveColExtraBed.setCellValueFactory(new PropertyValueFactory<>("ExtraBed"));
-			ReserveColBedValue.setCellValueFactory(new PropertyValueFactory<>("BedValue"));
-			ReserveColPeople.setCellValueFactory(new PropertyValueFactory<>("NoOfPeople"));
-			ReserveColCinDate.setCellValueFactory(new PropertyValueFactory<>("DateIn"));
-			ReserveColCoutDate.setCellValueFactory(new PropertyValueFactory<>("DateOut"));
-			ReserveColTotal.setCellValueFactory(new PropertyValueFactory<>("TotalCharges"));
-		}
-		public void loadData() {
+			public void setCellTable2() {
+				
+				System.out.println("Got into Reserve ");
+				ReserveColRoomNo.setCellValueFactory(new PropertyValueFactory<>("RoomNo"));
+				ReserveColRoomType.setCellValueFactory(new PropertyValueFactory<>("RoomType"));
+				ReserveColCost.setCellValueFactory(new PropertyValueFactory<>("Cost"));
+				ReserveColExtraBed.setCellValueFactory(new PropertyValueFactory<>("ExtraBed"));
+				ReserveColPeople.setCellValueFactory(new PropertyValueFactory<>("NoOfPeople"));
+//				ReserveCoutDate.setCellValueFactory(new PropertyValueFactory<>("dateOut"));
+			}
+			private void loadData() {
 			   	reserveList.setItems(Reservedata);			   	
 			}
-	   //*******************************************************//
+			//*******************************************************//
 		
 	}
 

@@ -34,16 +34,8 @@ public class PopUpRoomController implements Initializable{
 	    
 	    
 	    
-	    
-	//***************Variables for Extra Bed Charges *****//
-		static int totalCostForExtraBed = 0, totalCharges = 0;
-	    String ExtraBedCost = "x 10,000";
-	//***************************************************//
     
-	    
-	    
-	    
-    //******************** Action Events ***********************//
+    //******************** Action Event ***********************//
 	    @FXML public void popUpCancel(ActionEvent event) {
 	    	   Stage stage = (Stage) cancel.getScene().getWindow();
 	  	       stage.close();
@@ -51,15 +43,14 @@ public class PopUpRoomController implements Initializable{
 	    @FXML public void popUpadd(ActionEvent event) throws SQLException, IOException {
        	
 	    SQLinsert sqlINSERT = new SQLinsert();
-    	CustomerTable cL = new CustomerTable(0, 0);
+    	CustomerTable cL = new CustomerTable(null, null, null, null, null, 0, 0, 0, null, null, null, null, false);
 	
     	
     	cL.setExtraBed(extraBedSpinner.getValue());
     	cL.setPersonPerRoom(PersonSpinner.getValue());
     	
-    	System.out.println();
-    	addTotalCharges();
-    	addAllValues();
+    	
+    	addSpinnerValues();
     	
     	
     	
@@ -72,32 +63,28 @@ public class PopUpRoomController implements Initializable{
 	    
 	    
 	    
-	    //********************* Change Scene **********************//
+	    //********************* Change Scene**********************//
 	    Parent home_page_parent = FXMLLoader.load(getClass().getResource("Reserve.fxml") );
 		Scene home_page_scene = new Scene (home_page_parent);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	//	Stage app_stage;
 		app_stage.setScene(home_page_scene);
 		app_stage.show();
 		//**********************************************************//
-		
-		
-		
-		
     }
-	//**********************************************************//
-	  
 	    
+   //*********************************************************//	
+    
+	    
+    
+	  
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			
-			System.out.println("Pop up Initializable");
 			addSpinner();
-			
+		
 		}
 		
-		
 		//********************* Getter & Setter Methods***************//
+		
 		 public Spinner<Integer> getExtraBedSpinner() {
 			return extraBedSpinner;
 		}
@@ -111,31 +98,27 @@ public class PopUpRoomController implements Initializable{
 		 public void setPersonSpinner(Spinner<Integer> personSpinner) {
 			this.PersonSpinner = personSpinner;
 		}
-	//********************* ************************s***************//
+	    
+		 //********************* ************************s***************//
 		 
 		 
 		 
 		 
-    //********************** Other Methods *******************//  
+      //********************** Other Methods *******************//  
+		 
 		 private void addSpinner() {
 		//adding spinner value
 	    extraBedSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3));
 	    PersonSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 5));
 	      }
-		 public void addTotalCharges() {
+		 public void addSpinnerValues() {
 			 
-			 totalCostForExtraBed = extraBedSpinner.getValue() * 10000;
-			 totalCharges = totalCostForExtraBed + Room.getCost();
+			 System.out.println(extraBedSpinner.getValue());
+			 System.out.println(PersonSpinner.getValue());
 			 
+			 ReserveController.Reservedata.add(new RoomTemp( extraBedSpinner.getValue(), PersonSpinner.getValue() ) ) ;
 		 }
-		 public void addAllValues() {
-			 
-			 	System.out.println("Add all values into reserve page");
-				ReserveController.Reservedata.add(new RoomTemp(Room.getRoomNo(), Room.getRoomType(), Room.getCost(), extraBedSpinner.getValue(),
-						ExtraBedCost, RoomsController.NSAstringDateIn, RoomsController.NSAstringDateOut, totalCharges ));
-			 
-		 }
-   //*********************************************************// 
-
-		 
+	 //*********************************************************// 
+			
+		
 }

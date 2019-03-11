@@ -19,33 +19,28 @@ public class CustomerTable {
 	private String cEmail;
 	
 	private int personPerRoom;
-	
-
-
 	private int extraBed;
 	private LocalDate reservedTime;
 	private String dateIn;
 	private String dateOut;
 	
-	
-	
-
-	public CustomerTable(String cName, String cPhNo1, String cPhNo2, String cNRC, String cEmail) {
+	public CustomerTable (String cName, String cPhNo1, String cPhNo2, String cNRC, String cEmail,int personPerRoom, int roomNo, int extraBed,LocalDate reservedTime, String name, String dateIn, String dateOut, boolean checkOutStatus)
+	{
 		super();
 		this.cName = cName;
+		this.cNRC = cNRC;
 		this.cPhNo1 = cPhNo1;
 		this.cPhNo2 = cPhNo2;
-		this.cNRC = cNRC;
 		this.cEmail = cEmail;
-	}
-	public CustomerTable(int personPerRoom, int extraBed) {
-		super();
-		this.personPerRoom = personPerRoom;
+		this.reservedTime = reservedTime;
+		this.dateIn = dateIn;
+		this.dateOut = dateOut;
 		this.extraBed = extraBed;
+		this.personPerRoom = personPerRoom;
 	}
-
-
-
+	
+	
+	
 	public String getcName() {
 		return cName;
 	}

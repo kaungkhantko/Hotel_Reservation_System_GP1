@@ -7,34 +7,38 @@ public class RoomTemp {
 		
 		public SimpleIntegerProperty RoomNo = new SimpleIntegerProperty();
 		public SimpleStringProperty RoomType = new SimpleStringProperty();
-		public SimpleIntegerProperty Cost = new SimpleIntegerProperty(); //Room Cost
-		public SimpleStringProperty DateIn = new SimpleStringProperty();
-		public SimpleStringProperty DateOut = new SimpleStringProperty();
-		public SimpleIntegerProperty ExtraBed = new SimpleIntegerProperty();// number of extraBed
-		public SimpleStringProperty BedValue = new SimpleStringProperty(); //cost for extra bed
+		public SimpleIntegerProperty Cost = new SimpleIntegerProperty();
+		public SimpleStringProperty dateIn = new SimpleStringProperty();
+		public SimpleStringProperty dateOut = new SimpleStringProperty();
+		public SimpleIntegerProperty ExtraBed = new SimpleIntegerProperty();
 		public SimpleIntegerProperty NoOfPeople= new SimpleIntegerProperty();
-		public SimpleIntegerProperty TotalCharges = new SimpleIntegerProperty();
+	
 		
 		
-		//********************* Constructor *************************//
-		public RoomTemp(int roomNo, String roomType, int cost, int extraBed ,String bedValue, 
-				String dateIn, String dateOut,  int totalCharges) {
+	//	public SimpleStringProperty extraBed = new SimpleStringProperty();
+	//	public SimpleStringProperty NoOfPeople= new SimpleStringProperty();
+		
+
+		//public RoomTemp() {};
+		
+		//********************* Constructors *************************//
+		
+		public RoomTemp (int RoomTempNo, String RoomTempType, int cost)
+		{
 			super();
-			RoomNo.set(roomNo);
-			RoomType.set(roomType);
-			Cost.set(cost);
-			ExtraBed.set(extraBed);
-			DateIn.set(dateIn);
-			DateOut.set(dateOut);
-			BedValue.set(bedValue);
-			TotalCharges.set(totalCharges);
+			this.RoomNo.set(RoomTempNo);
+			this.RoomType.set(RoomTempType);
+			this.Cost.set(cost);
 		}
+		public RoomTemp(int value, int value2) {
+			super();
+			ExtraBed.set(value);
+			NoOfPeople.set(value2);
+		}
+
 		//**************************************************************//
 		
 		
-		
-		
-	
 		//******************* Getter & Setter Methods ***************//
 		public int getRoomNo() {
 			return RoomNo.get();
@@ -65,18 +69,18 @@ public class RoomTemp {
 		
 
 		public String getDateIn() {
-			return DateIn.get();
+			return dateIn.get();
 		}
 		public void setDateIn(String dateIn) {
-			this.DateIn.set(dateIn);
+			this.dateIn.set(dateIn);
 		}
 	
 		
 		public String getDateOut() {
-			return DateOut.get();
+			return dateOut.get();
 		}
 		public void setDateOut(String dateOut) {
-		this.DateOut.set(dateOut); }
+		this.dateOut.set(dateOut); }
 		
 		
 		public int getExtraBed() {
@@ -86,14 +90,6 @@ public class RoomTemp {
 			this.ExtraBed.set(extraBed);
 		}
 
-		
-		public String getBedValue() {
-			return BedValue.get();
-		}
-		public void setBedValue(String bedValue) {
-		this.BedValue.set(bedValue); }
-		
-		
 		public int getNoOfPeople() {
 			return NoOfPeople.get();
 		}
@@ -101,14 +97,6 @@ public class RoomTemp {
 					this.NoOfPeople.set(noOfPeople);
 				}
 				//******************************************************************//	
-		
-		
-		public int getTotalCharges() {
-			return TotalCharges.get();
-		}
-		public void setTotalCharges(int totalCharges) {
-			this.TotalCharges.set(totalCharges);
-		}
 		//***************************************************************//
 	}
 
