@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="542.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainview.CustomerListController">
+   <children>
+      <HBox focusTraversable="true" prefHeight="619.0" prefWidth="286.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="149.0" prefWidth="264.0">
+               <children>
+                  <VBox prefHeight="117.0" prefWidth="266.0" VBox.vgrow="SOMETIMES">
+                     <children>
+                        <ImageView fitHeight="117.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Icons&amp;Images/Images/Novotel_logo_(2016).svg.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="14.0" left="7.0" right="7.0" top="7.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Line endX="164.2928924560547" endY="1.6033649444580078E-5" startX="-100.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="217.0" prefWidth="266.0" VBox.vgrow="SOMETIMES">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="264.0" style="-fx-background-color: #00add2;">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../Downloads/Icons&amp;Images/Icons/icons8-reservation_2_filled.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Button mnemonicParsing="false" onAction="#goReservationPage" prefHeight="38.0" prefWidth="152.0" style="-fx-text-fill: white; -fx-background-color: #86c8d6;" text="Reservation" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="264.0" style="-fx-background-color: #00add2;">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../Downloads/Icons&amp;Images/Icons/icons8-bed_filled.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Button mnemonicParsing="false" onAction="#goRoomsPage" prefHeight="38.0" prefWidth="157.0" style="-fx-text-fill: white; -fx-background-color: #86c8d6;" text="Rooms" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="264.0" style="-fx-background-color: #00add2;">
+                           <children>
+                              <ImageView pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../Downloads/Icons&amp;Images/Icons/icons8-gender_neutral_user_filled.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Button mnemonicParsing="false" onAction="#goCustomerListPage" prefHeight="38.0" prefWidth="161.0" style="-fx-text-fill: white; -fx-background-color: #86c8d6;" text="Customer List" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="0.0" prefWidth="266.0" VBox.vgrow="SOMETIMES">
+                     <children>
+                        <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#goSetting" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: transparent;">
+                           <graphic>
+                              <ImageView fitHeight="35.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../../Downloads/Icons&amp;Images/Icons/icons8-settings.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="7.0" />
+                           </HBox.margin>
+                        </Button>
+                        <ImageView fitHeight="80.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../Downloads/Icons&amp;Images/585e4bf3cb11b227491c339a.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="58.0" prefWidth="264.0">
+                     <children>
+                        <Line endX="100.0" startX="-100.0">
+                           <VBox.margin>
+                              <Insets top="-22.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#goSignOut" style="-fx-background-color: transparent; -fx-font-size: 15px;" text="Sign Out" />
+                     </children>
+                  </VBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="6.5" left="6.5" right="6.5" top="6.5" />
+               </HBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+            <Separator disable="true" orientation="VERTICAL" prefHeight="584.0" prefWidth="76.0" style="-fx-background-color: black;" />
+         </children>
+      </HBox>
+      <VBox layoutX="285.0" prefHeight="619.0" prefWidth="789.0">
+         <children>
+            <VBox layoutX="151.0" prefHeight="48.0" prefWidth="789.0">
+               <children>
+                  <AnchorPane prefHeight="48.0" prefWidth="789.0" style="-fx-background-color: #2a5d90; -fx-border-color: grey;">
+                     <children>
+                        <Text fill="WHITE" layoutX="32.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer List" wrappingWidth="230.5520782470703" x="275.0">
+                           <font>
+                              <Font size="26.0" />
+                           </font></Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <VBox prefHeight="119.0" prefWidth="789.0">
+               <children>
+                  <AnchorPane prefHeight="121.0" prefWidth="789.0" style="-fx-background-color: #2a5d90; -fx-border-color: grey;">
+                     <children>
+                        <TextField layoutX="36.0" layoutY="27.0" promptText="Name" style="-fx-background-color: white;" />
+                        <TextField fx:id="NameTBox" layoutX="375.0" layoutY="27.0" promptText="Name" style="-fx-background-color: white;" AnchorPane.rightAnchor="586.0" />
+                        <TextField fx:id="PhNoTBox" layoutX="234.0" layoutY="27.0" promptText="Phone Number" style="-fx-background-color: white;" />
+                        <CheckBox fx:id="check_OldList" layoutX="137.0" layoutY="81.0" mnemonicParsing="false" text="Old List" textFill="WHITE" />
+                        <CheckBox fx:id="check_CurrentList" layoutX="401.0" layoutY="81.0" mnemonicParsing="false" text="Current List" textFill="WHITE" />
+                        <CheckBox fx:id="check_BookedList" layoutX="265.0" layoutY="81.0" mnemonicParsing="false" text="Booked List" textFill="WHITE" />
+                        <Button fx:id="SearchBtn" layoutX="667.0" layoutY="24.0" mnemonicParsing="false" onAction="#Search" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Search" />
+                        <Button fx:id="ResetBtn" layoutX="668.0" layoutY="67.0" mnemonicParsing="false" onAction="#Reset" opacity="0.47" prefHeight="27.0" prefWidth="82.0" style="-fx-border-color: grey; -fx-border-radius: 50; -fx-background-radius: 50;" text="Reset" />
+                        <TextField fx:id="RoomNoTBox" layoutX="437.0" layoutY="27.0" promptText="Room Number" style="-fx-background-color: white;" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <VBox prefHeight="453.0" prefWidth="789.0">
+               <children>
+                  <TableView fx:id="list" editable="true" prefHeight="458.0" prefWidth="789.0" style="-fx-background-color: white; -fx-border-color: grey;">
+                     <columns>
+                        <TableColumn fx:id="ColumnCNo" prefWidth="47.0" text="No" />
+                        <TableColumn fx:id="ColumnRoomNo" prefWidth="77.0" text="Room No" />
+                        <TableColumn fx:id="ColumnCname" prefWidth="134.0" text="Name" />
+                        <TableColumn fx:id="ColumnPhNo1" prefWidth="112.0" text="Phone Number" />
+                        <TableColumn fx:id="ColumnReservationTime" prefWidth="116.0" text="Reserved Time" />
+                        <TableColumn fx:id="ColumnCheckInD" minWidth="0.0" prefWidth="146.0" text="Check In Date" />
+                        <TableColumn fx:id="ColumnCheckOutD" prefWidth="153.0" text="Check Out Date" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
