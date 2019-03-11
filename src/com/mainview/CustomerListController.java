@@ -128,7 +128,6 @@ public class CustomerListController implements Initializable {
 	 //******************** Action Event ************************//
     
 	    @FXML void Search(ActionEvent event) {
-	    	
 	    	i = 1;
 	    	list.getItems().clear();
 	    	setCellTable();
@@ -142,10 +141,8 @@ public class CustomerListController implements Initializable {
 				addBookedList();
     }
 	    @FXML void Reset(ActionEvent event) {
-	    	i=1;
-			setCellTable();
-			Customerdata = FXCollections.observableArrayList();
-			loadData(sql_all);	
+	    	
+	    	Reset();
 	    }
 	 //********************************************************************//
 	    
@@ -153,11 +150,8 @@ public class CustomerListController implements Initializable {
  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		setCellTable();
-		Customerdata = FXCollections.observableArrayList();
-		loadData(sql_all);	
-		
+
+		Reset();
 	}
 
 	//********************** Other Methods *******************//  
@@ -181,7 +175,6 @@ public class CustomerListController implements Initializable {
 			roomNo = "'%" + RoomNoTBox.getText() + "%'";
 			phNo = "'%" + PhNoTBox.getText() + "%'";
 			
-			
 			if (NameTBox.getText().trim().isEmpty()) {}
 			else
 				sql = sql.concat(" AND CustomerName LIKE " + name);
@@ -189,7 +182,7 @@ public class CustomerListController implements Initializable {
 			if (PhNoTBox.getText().trim().isEmpty()) {}
 			else
 				sql = sql.concat(" AND PhoneNumber1 LIKE " + phNo);
-			
+		
 			if (RoomNoTBox.getText().trim().isEmpty()) {}
 			else
 				sql = sql.concat(" AND RoomNo = " + roomNo);
@@ -230,6 +223,21 @@ public class CustomerListController implements Initializable {
 		private void addCurrentList() {
 			String sql_currentList = sql_all.concat(" WHERE CheckInStatus = TRUE AND CheckOutStatus = FALSE");
 			loadData(sql_currentList);
+		}
+		
+		void Reset() {
+			NameTBox.setText("");
+	    	PhNoTBox.setText("");
+	    	RoomNoTBox.setText("");
+	    	
+	    	check_OldList.setSelected(false);
+	    	check_CurrentList.setSelected(false);
+	    	check_BookedList.setSelected(false);
+	    	
+	    	i=1;
+			setCellTable();
+			Customerdata = FXCollections.observableArrayList();
+			loadData(sql_all);	
 		}
    //*********************************************************************//
 
