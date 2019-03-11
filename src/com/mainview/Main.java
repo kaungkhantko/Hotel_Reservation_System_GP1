@@ -2,6 +2,7 @@ package com.mainview;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,15 +11,25 @@ import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
 
-public class Main extends Application{
+
+
+	public class Main extends Application{
 	
+		
+	static Stage primaryStage;
+	Scene MainScene;
+		
 	@Override
 	public void start(Stage stage) {
 		try {
+			
+			primaryStage = stage;
+			
+			
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Reserve.fxml"));
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.setTitle("Hotel Reservation System");
+			MainScene = new Scene(root);
+			primaryStage.setScene(MainScene);
+			primaryStage.setTitle("Hotel Reservation System");
 			
 			stage.setOnCloseRequest(event -> {
 				
@@ -44,3 +55,7 @@ public class Main extends Application{
 		launch(args);
 	}
 }
+	
+//	   Parent p = FXMLLoader.load(getClass().getResource("Reserve.fxml") );
+//			Scene pop_up_scene= new Scene (p);
+//			Main.primaryStage.setScene(pop_up_scene);
