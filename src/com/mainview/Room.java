@@ -6,9 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 public class Room {
 		
 		public SimpleIntegerProperty rowNumber = new SimpleIntegerProperty();
-		public static SimpleIntegerProperty roomNo = new SimpleIntegerProperty();
-		public static SimpleStringProperty roomType = new SimpleStringProperty();
-		public static SimpleIntegerProperty cost = new SimpleIntegerProperty();
+		
+		public static SimpleIntegerProperty staticRoomNo = new SimpleIntegerProperty();
+		public static SimpleStringProperty staticRoomType = new SimpleStringProperty();
+		public static SimpleIntegerProperty staticCost = new SimpleIntegerProperty();
+		
+		public SimpleIntegerProperty roomNo = new SimpleIntegerProperty();
+		public SimpleStringProperty roomType = new SimpleStringProperty();
+		public SimpleIntegerProperty cost = new SimpleIntegerProperty();
 		public SimpleIntegerProperty maximum = new SimpleIntegerProperty();
 		public SimpleStringProperty availability = new SimpleStringProperty();
 		public SimpleStringProperty dateIn = new SimpleStringProperty();
@@ -24,7 +29,7 @@ public class Room {
 		//public SimpleStringProperty actualCheckOut = new SimpleStringProperty();
 		//private boolean checkOutStatus;
 		
-		//public Room() {};
+		public Room() {};
 		public Room (int rowNumber, int roomNo, String roomType, int cost, int maximum, String availability)
 		{
 			super();
@@ -34,6 +39,9 @@ public class Room {
 			this.cost.set(cost);
 			this.maximum.set(maximum);
 			this.availability.set(availability);
+			staticRoomNo.set(roomNo);
+			staticRoomType.set(roomType);
+			staticCost.set(cost);
 		}
 		
 
@@ -46,26 +54,29 @@ public class Room {
 		}
 
 		
-		public static int getRoomNo() {
-			return roomNo.get();
+		public static int getStaticRoomNo() {
+			return staticRoomNo.get();
 		}
-		public void setRoomNo(int roomNo) {
+		public void setStaticRoomNo(int roomNo) {
+			staticRoomNo.set(roomNo);
 			this.roomNo.set(roomNo);
 		}
 
 		
-		public static String getRoomType() {
-			return roomType.get();
+		public static String getStaticRoomType() {
+			return staticRoomType.get();
 		}
-		public void setRoomType(String roomType) {
+		public void setStaticRoomType(String roomType) {
+			staticRoomType.set(roomType);
 			this.roomType.set(roomType);
 		}
 
 		
-		public static int getCost() {
-			return cost.get();
+		public static int getStaticCost() {
+			return staticCost.get();
 		}
-		public void setCost(int cost) {
+		public void setStaticCost(int cost) {
+			staticCost.set(cost);
 			this.cost.set(cost);
 		}
 
@@ -79,11 +90,11 @@ public class Room {
 		
 		public int getNoOfPerson() {
 			return NoOfPeople.get();
-	}
+		}
+		
 		public void setNoOfPerson(int noOfPerson) {
 		this.NoOfPeople.set(noOfPerson);
-	}
-
+		}
 		
 		public String getAvailability() {
 			return availability.get();
@@ -106,7 +117,41 @@ public class Room {
 		}
 		public void setNoOfPeople(int noOfPeople) {
 				this.NoOfPeople.set(noOfPeople);
-			}
+		}
+		
+		
+		public int getRoomNo() {
+			return roomNo.get();
+		}
+
+
+		public void setRoomNo(int roomNo) {
+			staticRoomNo.set(roomNo);
+			this.roomNo.set(roomNo);
+		}
+
+
+		public int getCost() {
+			return cost.get();
+		}
+
+
+		public void setCost(int cost) {
+			staticCost.set(cost);
+			this.cost.set(cost);
+		}
+
+
+		public void setRoomType(String roomType) {
+			staticRoomType.set(roomType);
+			this.roomType.set(roomType);
+		}
+		
+		public String getRoomType()
+		{
+			return roomType.get();
+		}
+		
 	//******************************************************************//	
 		
 }		

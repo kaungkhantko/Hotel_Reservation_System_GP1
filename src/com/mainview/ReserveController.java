@@ -51,7 +51,7 @@ import javafx.stage.Stage;
 		    
 		    
 	    
-		@FXML public static ObservableList<RoomTemp> Reservedata =  FXCollections.observableArrayList();;
+		@FXML public static ObservableList<RoomTemp> Reservedata =  FXCollections.observableArrayList();
 	    
 		
 		
@@ -110,7 +110,7 @@ import javafx.stage.Stage;
 		cL.setcPhNo2(cPhNo2.getText());
 		cL.setcEmail(cEmail.getText());;
 		
-		cL.setRoomNo(Room.getRoomNo());
+		cL.setRoomNo(Room.getStaticRoomNo());
 		
     	cL.setDateIn(RoomsController.NSAstringDateIn);
     	cL.setDateOut(RoomsController.NSAstringDateOut);
@@ -159,6 +159,7 @@ import javafx.stage.Stage;
 	    }
 	    @FXML public void cancelRoom(ActionEvent event) {
 	    	reserveList.getItems().remove(reserveList.getSelectionModel().getSelectedItem());
+	    	Reservedata.remove(reserveList.getSelectionModel().getSelectedIndex());
 	    }
     //********************************************************************//
 
@@ -166,7 +167,6 @@ import javafx.stage.Stage;
 	    
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			
 			loadData();
 			setCellTable2();
 		}

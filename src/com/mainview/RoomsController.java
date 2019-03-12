@@ -90,6 +90,7 @@ public class RoomsController implements Initializable {
 		
 		LocalDate dateIn, dateOut;
 		String chosenType;
+		Room r = new Room();
     //********************************************************************//    
     
 
@@ -281,7 +282,9 @@ public class RoomsController implements Initializable {
 	    }
 	    public void fetchData() throws IOException {
 	    	
-	         Room r = roomTable.getSelectionModel().getSelectedItem();	
+	         r.staticCost = roomTable.getSelectionModel().getSelectedItem().cost;
+	         r.staticRoomNo = roomTable.getSelectionModel().getSelectedItem().roomNo;
+	         r.staticRoomType = roomTable.getSelectionModel().getSelectedItem().roomType;
 	         
 	    	if(roomTable.getSelectionModel().getSelectedItem() != null) {
 		    	
