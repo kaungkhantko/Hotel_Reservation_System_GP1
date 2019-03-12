@@ -68,7 +68,7 @@ public class CustomerListController implements Initializable {
 	    @FXML private TableColumn<?, ?> ColumnCheckOutD;
     //*************************************************//
     
-	int i=1;
+	int i;
 	String name;
     String phNo;
 	String roomNo;
@@ -128,6 +128,7 @@ public class CustomerListController implements Initializable {
 	 //******************** Action Event ************************//
     
 	    @FXML void Search(ActionEvent event) {
+	    	
 	    	i = 1;
 	    	list.getItems().clear();
 	    	setCellTable();
@@ -141,8 +142,9 @@ public class CustomerListController implements Initializable {
 				addBookedList();
     }
 	    @FXML void Reset(ActionEvent event) {
-	    	
-	    	Reset();
+			setCellTable();
+			Customerdata = FXCollections.observableArrayList();
+			loadData(sql_all);	
 	    }
 	 //********************************************************************//
 	    
@@ -150,8 +152,11 @@ public class CustomerListController implements Initializable {
  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		Reset();
+		
+		setCellTable();
+		Customerdata = FXCollections.observableArrayList();
+		loadData(sql_all);	
+		
 	}
 
 	//********************** Other Methods *******************//  
@@ -171,24 +176,22 @@ public class CustomerListController implements Initializable {
 			
 			
 			String sql = sql_input;
-			name = "'%" + NameTBox.getText() + "%'";
-			roomNo = "'%" + RoomNoTBox.getText() + "%'";
-			phNo = "'%" + PhNoTBox.getText() + "%'";
+			name = "'" + NameTBox.getText() + "'";
+			roomNo = "'" + RoomNoTBox.getText() + "'";
+			phNo = "'" + PhNoTBox.getText() + "'";
+			
 			
 			if (NameTBox.getText().trim().isEmpty()) {}
 			else
-				sql = sql.concat(" AND CustomerName LIKE " + name);
+				sql = sql.concat(" AND CustomerName = " + name);
 			
 			if (PhNoTBox.getText().trim().isEmpty()) {}
 			else
-				sql = sql.concat(" AND PhoneNumber1 LIKE " + phNo);
-		
+				sql = sql.concat(" AND PhoneNumber1 = " + phNo);
+			
 			if (RoomNoTBox.getText().trim().isEmpty()) {}
 			else
 				sql = sql.concat(" AND RoomNo = " + roomNo);
-			
-			sql = sql.concat(" ORDER BY CustomerName");
-			
 		   	try(Connection c = SqliteConnection.Connector();
 		   	PreparedStatement preparedStatement = c.prepareStatement(sql);
 		   	ResultSet rs = preparedStatement.executeQuery();)
@@ -226,21 +229,6 @@ public class CustomerListController implements Initializable {
 		private void addCurrentList() {
 			String sql_currentList = sql_all.concat(" WHERE CheckInStatus = TRUE AND CheckOutStatus = FALSE");
 			loadData(sql_currentList);
-		}
-		
-		void Reset() {
-			NameTBox.setText("");
-	    	PhNoTBox.setText("");
-	    	RoomNoTBox.setText("");
-	    	
-	    	check_OldList.setSelected(false);
-	    	check_CurrentList.setSelected(false);
-	    	check_BookedList.setSelected(false);
-	    	
-	    	i=1;
-			setCellTable();
-			Customerdata = FXCollections.observableArrayList();
-			loadData(sql_all);	
 		}
    //*********************************************************************//
 

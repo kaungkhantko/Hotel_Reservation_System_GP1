@@ -42,18 +42,7 @@ public class RoomsController implements Initializable {
 		@FXML private ComboBox<String> RoomTypeCombo;
 		@FXML private DatePicker DateInTBox;
 	    @FXML private DatePicker DateOutTBox;
-	    @FXML private ObservableList<Room> data;
-	//////////////////////////////////////////////////////
-	    public static int i;
-	    int maximum;
-	    String availability="";
-		String sql_all = "Select Room.RoomNo, Room_Type.RoomType, Room_Type.Cost, Room_Type.NumberOfBeds, Room_Type.ExtraBeds, Reserved_Room.CheckInStatus, Reserved_Room.CheckOutStatus, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate\n" + 
-				"From Room_Type " + 
-				"INNER JOIN Room " + 
-				"On Room.RoomTypeID = Room_Type.RoomTypeID " + 
-				"INNER JOIN Reserved_Room " + 
-				"On Reserved_Room.RoomNo = Room.RoomNo " +
-				"WHERE Reserved_Room.CheckOutStatus=0 "; 
+
    //******************************************//
     
 	    
@@ -62,21 +51,43 @@ public class RoomsController implements Initializable {
     //***********Table Column Variables*****************//
 	    @FXML private TableView<Room> roomTable;
 	    @FXML private TableColumn<?, ?> columnNo;
-	    @FXML private TableColumn<?, ?> columnRoomNo;
+		@FXML private TableColumn<?, ?> columnRoomNo;
 	    @FXML private TableColumn<?, ?> columnRoomType;
 	    @FXML private TableColumn<?, ?> columnCost;
 	    @FXML private TableColumn<?, ?> columnMaximum;
 	    @FXML private TableColumn<?, ?> columnAvailability;
 	    
-    //***************************************************//  
+    //***************************************************//
+	 
+ 
+    @FXML private ObservableList<Room> data;
+    
+    
+    
+    
+	    //*********************** Variables for Data Base******************//
+	    public static int i;
+	    int maximum;
+	    String availability="";
+		String sql_all = "Select Room.RoomNo, Room_Type.RoomType, Room_Type.Cost, Room_Type.NumberOfBeds, Room_Type.ExtraBeds, Reserved_Room.CheckInStatus, Reserved_Room.CheckOutStatus, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate\n" + 
+				"From Room_Type " + 
+				"INNER JOIN Room " + 
+				"On Room.RoomTypeID = Room_Type.RoomTypeID " + 
+				"INNER JOIN Reserved_Room " + 
+				"On Reserved_Room.RoomNo = Room.RoomNo ";
+	    //****************************************************************//
 	    
-	    
+		
+		
+		
 	
     //*********************** Variables for Date ****************************//
 		final DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		final DateTimeFormatter NSAformatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		
 		LocalDate roomDateOut, roomDateIn;
 		String stringDateIn, stringDateOut;
+		static String NSAstringDateIn, NSAstringDateOut;
 		
 		LocalDate dateIn, dateOut;
 		String chosenType;
@@ -129,17 +140,21 @@ public class RoomsController implements Initializable {
     }
     //*********************************************************************//
     
-	
     
     
     
     //******************** Action Events ************************//
-    	@FXML void Search(ActionEvent event) throws SQLException {
+    	@FXML public void Search(ActionEvent event) throws SQLException {
 		   
 	    //Converting LocalDate   to a user specific format - dd/MM/yyyy
 	    
     	   stringDateIn=(DateInTBox.getValue()).format(formatter); 
     	   stringDateOut=(DateOutTBox.getValue()).format(formatter);
+    	   
+    	   NSAstringDateIn = (DateInTBox.getValue().format(NSAformatter));
+    	   NSAstringDateOut = (DateOutTBox.getValue().format(NSAformatter));
+    	   
+    	   
     	   
     	   dateIn = LocalDate.parse(stringDateIn, formatter);
     	   dateOut =  LocalDate.parse(stringDateOut, formatter);
@@ -163,7 +178,10 @@ public class RoomsController implements Initializable {
         DateInTBox.setValue(LocalDate.now());
     	DateOutTBox.setValue(LocalDate.now());
 		fillComboBox();
-		setCellTable();		
+		setCellTable();
+		
+		
+		
 		
 		//Pop up window appearing
 		roomTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -171,14 +189,15 @@ public class RoomsController implements Initializable {
 			
 			if(event.getClickCount() >=2) { 
 				
-		    	  FXMLLoader Loader = new FXMLLoader();
-				  Loader.setLocation(getClass().getResource("PopUpRoom.fxml"));
+		    	 FXMLLoader Loader = new FXMLLoader();
+				 Loader.setLocation(getClass().getResource("PopUpRoom.fxml"));
 			
 				 try { Loader.load();} 
 				 catch(IOException ex) { Logger.getLogger(CustomerListController.class.getName()).log(Level.SEVERE,null,ex);}
 				 Parent p = Loader.getRoot();
 				 Stage stage = new Stage();
 				 stage.setScene(new Scene(p));
+				 stage.setTitle("Extra Information");
 				 stage.show();  
 				
 				 try { fetchData();} 
@@ -212,7 +231,7 @@ public class RoomsController implements Initializable {
 			String sql = sql_input;
 			chosenType = RoomTypeCombo.getValue();
 			
-			if (chosenType != "Any")
+			if (chosenType != null)
 				sql = sql.concat("AND RoomType = "+ "'" + chosenType + "'");
 			sql = sql.concat("GROUP BY Room.RoomNo\n ORDER BY Reserved_Room.CheckOutDate DESC ");
 
@@ -226,6 +245,8 @@ public class RoomsController implements Initializable {
 		   			maximum = rs.getInt("NumberOfBeds") + rs.getInt("ExtraBeds");
 		   			roomDateOut = LocalDate.parse(rs.getString("CheckOutDate"), formatter);
 					checkAvailability();
+					  //if(rs.getInt("CheckInStatus")==0 || (rs.getInt("CheckInStatus")==1 && rs.getInt("CheckInStatus")==1)) availability = "Available";
+					  //if(rs.getInt("CheckInStatus")==1) availability = "Not Available";
 		   			data.add(new Room(i,
 		   					rs.getInt("RoomNo"),
 		   					rs.getString("RoomType"),
@@ -242,7 +263,7 @@ public class RoomsController implements Initializable {
 		   	     roomTable.setItems(data);
 		}
 	    public void fillComboBox() {
-	    	RoomTypeCombo.getItems().add("Any");
+	    	
 	    	    String sql  = "SELECT RoomType from Room_Type";
 		   	       try(Connection c = SqliteConnection.Connector();
 		   	    	   PreparedStatement preparedStatement = c.prepareStatement(sql);
@@ -258,52 +279,26 @@ public class RoomsController implements Initializable {
 		   	        
 		   	       catch (SQLException ex){
 		   	    	   	 ex.printStackTrace();
-			       }
-		   	 RoomTypeCombo.setValue("Any");
+			       } 
 	    }
 	    public void fetchData() throws IOException {
 	    	
 	         Room r = roomTable.getSelectionModel().getSelectedItem();	
 	         
 	    	if(roomTable.getSelectionModel().getSelectedItem() != null) {
-	    		
-	    		System.out.println(r.getCost());
-	    		System.out.println(r.getRoomNo());
-	    		System.out.println(r.getRoomType());
-	    		
-		    	ReserveController.Reservedata.add(new RoomTemp(r.getRoomNo(), r.getRoomType(), r.getCost() ));
 		    	
 	    	} else { System.out.println("Fetched Null"); }
 
 	   }
-	    public void afterPopUp(MouseEvent event) throws IOException {
-//	    	Parent root = null;
-//				try {
-//					root = FXMLLoader.load(getClass().getResource("Reserve.fxml") );
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//				Scene reserve_page_scene = new Scene (root);
-//				Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//				app_stage.setScene(reserve_page_scene);
-//				app_stage.show();
-	    	
-	    }
 	    public void checkAvailability() {
+	    	
 	    	if(roomDateOut.isBefore(dateOut) && roomDateOut.isAfter(dateIn)) {
 				availability = "Not Available";
 			}
 			else
 				availability = "Available";
 	    }
-	    public void reset() {
-	    	i=1;
-	    	roomTable.getItems().clear();
-	        DateInTBox.setValue(LocalDate.now());
-	    	DateOutTBox.setValue(LocalDate.now());
-	    	RoomTypeCombo.setValue("Any");
-	    	loadData(sql_all);
-	    }
+
 	    //*********************************************************//  
 	
 	   

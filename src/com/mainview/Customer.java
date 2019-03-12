@@ -11,8 +11,7 @@ public class Customer {
 	public SimpleStringProperty reservedTime = new SimpleStringProperty();
 	public SimpleStringProperty name = new SimpleStringProperty();
 	public SimpleIntegerProperty phoneNumber1 = new SimpleIntegerProperty();
-	public SimpleStringProperty dateIn = new SimpleStringProperty();
-	public SimpleStringProperty dateOut = new SimpleStringProperty();
+
 	
 	public SimpleStringProperty testing = new SimpleStringProperty();
 	
@@ -26,8 +25,6 @@ public class Customer {
 		this.reservedTime.set(reservedTime);
 		this.name.set(name);
 		this.phoneNumber1.set(phoneNumber1);
-		this.dateIn.set(dateIn);
-		this.dateOut.set(dateOut);
 	}
 
 	public Customer(String testing) {
@@ -75,20 +72,6 @@ public class Customer {
 		}
 		public void setPhoneNumber1(int phoneNumber1) {
 			this.phoneNumber1.set(phoneNumber1);
-		}
-		
-		public String getDateIn() {
-			return dateIn.get();
-		}
-		public void setDateIn(String dateIn) {
-			this.dateIn.set(dateIn);
-		}
-		
-		public String getDateOut() {
-			return dateOut.get();
-		}
-		public void setDateOut(String dateOut) {
-			this.dateOut.set(dateOut);
 		}
 	
 

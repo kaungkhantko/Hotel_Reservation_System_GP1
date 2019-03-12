@@ -32,7 +32,7 @@
                            <children>
                               <ImageView fitHeight="117.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../Downloads/Icons&amp;Images/Images/Novotel_logo_(2016).svg.png" />
+                                    <Image url="@../../../Icons&amp;Images/Images/Novotel_logo_(2016).svg.png" />
                                  </image>
                                  <VBox.margin>
                                     <Insets bottom="14.0" left="7.0" right="7.0" top="7.0" />
@@ -56,7 +56,7 @@
                                  <children>
                                     <ImageView fitHeight="25.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../Downloads/Icons&amp;Images/Icons/icons8-reservation_2_filled.png" />
+                                          <Image url="@../../../Icons&amp;Images/Icons/icons8-reservation_2_filled.png" />
                                        </image>
                                        <HBox.margin>
                                           <Insets right="30.0" />
@@ -82,7 +82,7 @@
                                  <children>
                                     <ImageView fitHeight="25.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../Downloads/Icons&amp;Images/Icons/icons8-bed_filled.png" />
+                                          <Image url="@../../../Icons&amp;Images/Icons/icons8-bed_filled.png" />
                                        </image>
                                        <HBox.margin>
                                           <Insets right="30.0" />
@@ -108,7 +108,7 @@
                                  <children>
                                     <ImageView pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../Downloads/Icons&amp;Images/Icons/icons8-gender_neutral_user_filled.png" />
+                                          <Image url="@../../../Icons&amp;Images/Icons/icons8-gender_neutral_user_filled.png" />
                                        </image>
                                        <HBox.margin>
                                           <Insets right="30.0" />
@@ -138,7 +138,7 @@
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="48.0" onDragDetected="#goSetting" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../Downloads/Icons&amp;Images/Icons/icons8-settings.png" />
+                                          <Image url="@../../../Icons&amp;Images/Icons/icons8-settings.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -148,7 +148,7 @@
                               </Button>
                               <ImageView fitHeight="80.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../Downloads/Icons&amp;Images/585e4bf3cb11b227491c339a.png" />
+                                    <Image url="@../../../Icons&amp;Images/585e4bf3cb11b227491c339a.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -194,13 +194,12 @@
                <children>
                   <AnchorPane prefHeight="123.0" prefWidth="789.0" style="-fx-background-color: #2a5d90; -fx-border-color: grey;">
                      <children>
-                        <DatePicker fx:id="DateInTBox" layoutX="339.0" layoutY="19.0" />
-                        <DatePicker fx:id="DateOutTBox" layoutX="339.0" layoutY="64.0" />
-                        <Label layoutX="219.0" layoutY="24.0" text="Check in Date" textFill="WHITE" />
-                        <Label layoutX="210.0" layoutY="69.0" text="Check out Date" textFill="WHITE" />
+                        <DatePicker fx:id="DateInTBox" layoutX="357.0" layoutY="19.0" />
+                        <DatePicker fx:id="DateOutTBox" layoutX="357.0" layoutY="64.0" />
+                        <Label layoutX="251.0" layoutY="24.0" text="Check in Date" textFill="WHITE" />
+                        <Label layoutX="246.0" layoutY="69.0" text="Check out Date" textFill="WHITE" />
                         <Button layoutX="651.0" layoutY="64.0" mnemonicParsing="false" onAction="#Search" prefHeight="26.0" prefWidth="85.0" text="Search" />
-                        <ComboBox fx:id="RoomTypeCombo" layoutX="26.0" layoutY="19.0" prefWidth="150.0" promptText=" Room Type" />
-                        <Button fx:id="resetBtn" layoutX="651.0" layoutY="19.0" mnemonicParsing="false" onAction="#reset" prefHeight="26.0" prefWidth="85.0" text="Reset" />
+                        <ComboBox fx:id="RoomTypeCombo" layoutX="26.0" layoutY="19.0" prefHeight="27.0" prefWidth="187.0" promptText=" Room Type" />
                      </children>
                   </AnchorPane>
                </children>

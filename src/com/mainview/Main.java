@@ -1,24 +1,35 @@
 package com.mainview;
 	
 import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
-import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 
 
-public class Main extends Application{
+
+
+	public class Main extends Application{
 	
+		
+	static Stage primaryStage;
+	Scene MainScene;
+		
 	@Override
 	public void start(Stage stage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Reserve.fxml"));
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.setTitle("Hotel Reservation System");
+			
+			primaryStage = stage;
+			
+			
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Login.fxml"));
+			MainScene = new Scene(root);
+			primaryStage.setScene(MainScene);
+			primaryStage.setX(350);
+			primaryStage.setY(250);
+			primaryStage.setTitle("Hotel Reservation System");
 			
 			stage.setOnCloseRequest(event -> {
 				
@@ -32,7 +43,6 @@ public class Main extends Application{
 					}
 				});
 			});
-			
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -44,3 +54,4 @@ public class Main extends Application{
 		launch(args);
 	}
 }
+	

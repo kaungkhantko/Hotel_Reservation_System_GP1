@@ -41,30 +41,27 @@ public class SQLinsert{
 	  	        pstmt.setString(3, Ph1);
 	  	        pstmt.setString(4, Ph2);
 	  	        pstmt.setString(5, Email);
-	  	        
-	  	        Alert alert = new Alert(AlertType.INFORMATION);
-	  	        alert.setTitle("Information Dialog");
-	  	        alert.setHeaderText(null);
-	  	        alert.setContentText("Customer has been added ");
-	  	        alert.showAndWait();
-	  	        
                 pstmt.executeUpdate();
+                
+                System.out.println("C info added");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 	 
-	public void insertRoominfo(String dateIN, String dateOUT) throws SQLException {
+	public void insertRoominfo(int roomNo,String dateIN, String dateOUT) throws SQLException {
 		
 		ResultSet resultSet = null;
-	    String insertQuery = "INSERT INTO Reserved_Room(CheckInDate, CheckOutDate) VALUES(?,?)";
+	    String insertQuery = "INSERT INTO Reserved_Room(RoomNo, CheckInDate, CheckOutDate) VALUES(?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(insertQuery)) 
         {
 	  	        pstmt.setString(1, dateIN);
 	  	        pstmt.setString(2, dateOUT);
+	  	        pstmt.setInt(3, roomNo);
                 pstmt.executeUpdate();
+                System.out.println("Room info added");
                 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -89,6 +86,7 @@ public class SQLinsert{
 	  	        alert.setContentText("Added Successfully ");
 	  	        alert.showAndWait();
                 
+	  	        System.out.println("extraBed and no of people added");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

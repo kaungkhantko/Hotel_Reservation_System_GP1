@@ -6,9 +6,9 @@ import javafx.beans.property.SimpleStringProperty;
 public class Room {
 		
 		public SimpleIntegerProperty rowNumber = new SimpleIntegerProperty();
-		public SimpleIntegerProperty roomNo = new SimpleIntegerProperty();
-		public SimpleStringProperty roomType = new SimpleStringProperty();
-		public SimpleIntegerProperty cost = new SimpleIntegerProperty();
+		public static SimpleIntegerProperty roomNo = new SimpleIntegerProperty();
+		public static SimpleStringProperty roomType = new SimpleStringProperty();
+		public static SimpleIntegerProperty cost = new SimpleIntegerProperty();
 		public SimpleIntegerProperty maximum = new SimpleIntegerProperty();
 		public SimpleStringProperty availability = new SimpleStringProperty();
 		public SimpleStringProperty dateIn = new SimpleStringProperty();
@@ -46,7 +46,7 @@ public class Room {
 		}
 
 		
-		public int getRoomNo() {
+		public static int getRoomNo() {
 			return roomNo.get();
 		}
 		public void setRoomNo(int roomNo) {
@@ -54,7 +54,7 @@ public class Room {
 		}
 
 		
-		public String getRoomType() {
+		public static String getRoomType() {
 			return roomType.get();
 		}
 		public void setRoomType(String roomType) {
@@ -62,7 +62,7 @@ public class Room {
 		}
 
 		
-		public int getCost() {
+		public static int getCost() {
 			return cost.get();
 		}
 		public void setCost(int cost) {
