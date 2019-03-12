@@ -1,14 +1,6 @@
 package com.mainview;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-
-import javafx.scene.control.DatePicker;
-
 
 public class CustomerTable {
 	

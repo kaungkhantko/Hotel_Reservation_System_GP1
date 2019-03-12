@@ -77,9 +77,6 @@ import javafx.stage.Stage;
 	
     @FXML
     private Button signBtn;
-
-	
-	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

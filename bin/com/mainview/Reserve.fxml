@@ -238,14 +238,15 @@
                <children>
                   <TableView fx:id="reserveList" prefHeight="312.0" prefWidth="789.0">
                      <columns>
-                        <TableColumn fx:id="ReserveColRoomNo" prefWidth="71.70562744140625" text="Room No" />
-                        <TableColumn fx:id="ReserveColRoomType" prefWidth="119.29437255859375" text="Room Type" />
-                        <TableColumn fx:id="ReserveColCost" prefWidth="96.4141845703125" text="Cost" />
-                        <TableColumn fx:id="ReserveColExtraBed" prefWidth="88.76617431640625" text="Extra Beds" />
-                        <TableColumn fx:id="ReserveColPeople" prefWidth="67.82537841796875" text="Person" />
-                        <TableColumn prefWidth="125.41278076171875" text="Check in Date" />
-                        <TableColumn prefWidth="113.58721923828125" text="Check out Date" />
-                        <TableColumn prefWidth="103.41265869140625" text="Total" />
+                        <TableColumn fx:id="ReserveColRoomNo" prefWidth="56.0" text="Room " />
+                        <TableColumn fx:id="ReserveColRoomType" prefWidth="120.0" text="Type" />
+                        <TableColumn fx:id="ReserveColCost" prefWidth="90.0" text="Cost" />
+                        <TableColumn fx:id="ReserveColExtraBed" prefWidth="75.05816650390625" text="Extra Bed" />
+                        <TableColumn fx:id="ReserveColBedValue" prefWidth="90.9185791015625" text="Per Extra Bed" />
+                        <TableColumn fx:id="ReserveColPeople" prefWidth="55.1163330078125" text="Person" />
+                        <TableColumn fx:id="ReserveColCinDate" prefWidth="102.06402587890625" text="Check in Date" />
+                        <TableColumn fx:id="ReserveColCoutDate" prefWidth="103.05816650390625" text="Check out Date" />
+                        <TableColumn fx:id="ReserveColTotal" prefWidth="107.94183349609375" text="Total" />
                      </columns>
                   </TableView>
                </children>
