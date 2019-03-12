@@ -8,30 +8,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -68,10 +58,11 @@ public class CustomerListController implements Initializable {
 	    @FXML private TableColumn<?, ?> ColumnCheckOutD;
     //*************************************************//
     
-	int i;
+	int i=1;
 	String name;
     String phNo;
 	String roomNo;
+	String dateIn, dateOut;
 		
 	    
     @FXML
@@ -142,9 +133,7 @@ public class CustomerListController implements Initializable {
 				addBookedList();
     }
 	    @FXML void Reset(ActionEvent event) {
-			setCellTable();
-			Customerdata = FXCollections.observableArrayList();
-			loadData(sql_all);	
+	    	Reset();
 	    }
 	 //********************************************************************//
 	    
@@ -153,9 +142,7 @@ public class CustomerListController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		setCellTable();
-		Customerdata = FXCollections.observableArrayList();
-		loadData(sql_all);	
+		Reset();
 		
 	}
 
@@ -172,26 +159,28 @@ public class CustomerListController implements Initializable {
 			
 		}
 		
-		private void loadData(String sql_input) {
+private void loadData(String sql_input) {
 			
 			
 			String sql = sql_input;
-			name = "'" + NameTBox.getText() + "'";
-			roomNo = "'" + RoomNoTBox.getText() + "'";
-			phNo = "'" + PhNoTBox.getText() + "'";
-			
+			name = "'%" + NameTBox.getText() + "%'";
+			roomNo = "'%" + RoomNoTBox.getText() + "%'";
+			phNo = "'%" + PhNoTBox.getText() + "%'";
 			
 			if (NameTBox.getText().trim().isEmpty()) {}
 			else
-				sql = sql.concat(" AND CustomerName = " + name);
+				sql = sql.concat(" AND CustomerName LIKE " + name);
 			
 			if (PhNoTBox.getText().trim().isEmpty()) {}
 			else
-				sql = sql.concat(" AND PhoneNumber1 = " + phNo);
-			
+				sql = sql.concat(" AND PhoneNumber1 LIKE " + phNo);
+		
 			if (RoomNoTBox.getText().trim().isEmpty()) {}
 			else
 				sql = sql.concat(" AND RoomNo = " + roomNo);
+			
+			sql = sql.concat(" ORDER BY CustomerName");
+			
 		   	try(Connection c = SqliteConnection.Connector();
 		   	PreparedStatement preparedStatement = c.prepareStatement(sql);
 		   	ResultSet rs = preparedStatement.executeQuery();)
@@ -229,6 +218,21 @@ public class CustomerListController implements Initializable {
 		private void addCurrentList() {
 			String sql_currentList = sql_all.concat(" WHERE CheckInStatus = TRUE AND CheckOutStatus = FALSE");
 			loadData(sql_currentList);
+		}
+		
+		void Reset() {
+			NameTBox.setText("");
+	    	PhNoTBox.setText("");
+	    	RoomNoTBox.setText("");
+	    	
+	    	check_OldList.setSelected(false);
+	    	check_CurrentList.setSelected(false);
+	    	check_BookedList.setSelected(false);
+	    	
+	    	i=1;
+			setCellTable();
+			Customerdata = FXCollections.observableArrayList();
+			loadData(sql_all);	
 		}
    //*********************************************************************//
 

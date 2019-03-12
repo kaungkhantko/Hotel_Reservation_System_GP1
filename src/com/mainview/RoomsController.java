@@ -25,13 +25,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class RoomsController implements Initializable {
@@ -42,6 +39,7 @@ public class RoomsController implements Initializable {
 		@FXML private ComboBox<String> RoomTypeCombo;
 		@FXML private DatePicker DateInTBox;
 	    @FXML private DatePicker DateOutTBox;
+	    @FXML private Button resetBtn;
 
    //******************************************//
     
@@ -69,12 +67,13 @@ public class RoomsController implements Initializable {
 	    public static int i;
 	    int maximum;
 	    String availability="";
-		String sql_all = "Select Room.RoomNo, Room_Type.RoomType, Room_Type.Cost, Room_Type.NumberOfBeds, Room_Type.ExtraBeds, Reserved_Room.CheckInStatus, Reserved_Room.CheckOutStatus, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate\n" + 
+	    String sql_all = "Select Room.RoomNo, Room_Type.RoomType, Room_Type.Cost, Room_Type.NumberOfBeds, Room_Type.ExtraBeds, Reserved_Room.CheckInStatus, Reserved_Room.CheckOutStatus, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate\n" + 
 				"From Room_Type " + 
 				"INNER JOIN Room " + 
 				"On Room.RoomTypeID = Room_Type.RoomTypeID " + 
 				"INNER JOIN Reserved_Room " + 
-				"On Reserved_Room.RoomNo = Room.RoomNo ";
+				"On Reserved_Room.RoomNo = Room.RoomNo " +
+				"WHERE Reserved_Room.CheckOutStatus=0 "; 
 	    //****************************************************************//
 	    
 		
@@ -231,7 +230,7 @@ public class RoomsController implements Initializable {
 			String sql = sql_input;
 			chosenType = RoomTypeCombo.getValue();
 			
-			if (chosenType != null)
+			if (chosenType != "Any")
 				sql = sql.concat("AND RoomType = "+ "'" + chosenType + "'");
 			sql = sql.concat("GROUP BY Room.RoomNo\n ORDER BY Reserved_Room.CheckOutDate DESC ");
 
@@ -245,8 +244,6 @@ public class RoomsController implements Initializable {
 		   			maximum = rs.getInt("NumberOfBeds") + rs.getInt("ExtraBeds");
 		   			roomDateOut = LocalDate.parse(rs.getString("CheckOutDate"), formatter);
 					checkAvailability();
-					  //if(rs.getInt("CheckInStatus")==0 || (rs.getInt("CheckInStatus")==1 && rs.getInt("CheckInStatus")==1)) availability = "Available";
-					  //if(rs.getInt("CheckInStatus")==1) availability = "Not Available";
 		   			data.add(new Room(i,
 		   					rs.getInt("RoomNo"),
 		   					rs.getString("RoomType"),
@@ -263,7 +260,7 @@ public class RoomsController implements Initializable {
 		   	     roomTable.setItems(data);
 		}
 	    public void fillComboBox() {
-	    	
+	    	RoomTypeCombo.getItems().add("Any");
 	    	    String sql  = "SELECT RoomType from Room_Type";
 		   	       try(Connection c = SqliteConnection.Connector();
 		   	    	   PreparedStatement preparedStatement = c.prepareStatement(sql);
@@ -279,7 +276,8 @@ public class RoomsController implements Initializable {
 		   	        
 		   	       catch (SQLException ex){
 		   	    	   	 ex.printStackTrace();
-			       } 
+			       }
+		   	    RoomTypeCombo.setValue("Any");
 	    }
 	    public void fetchData() throws IOException {
 	    	
@@ -297,6 +295,23 @@ public class RoomsController implements Initializable {
 			}
 			else
 				availability = "Available";
+	    }
+	    
+	    public void reset() {
+	    	i=1;
+	    	roomTable.getItems().clear();
+	    	
+	        DateInTBox.setValue(LocalDate.now());
+	    	DateOutTBox.setValue(LocalDate.now());
+	    	
+	    	RoomTypeCombo.setValue("Any");
+	    	
+	    	stringDateIn=(DateInTBox.getValue()).format(formatter); 
+	    	stringDateOut=(DateOutTBox.getValue()).format(formatter);
+	    	   
+	    	dateIn = LocalDate.parse(stringDateIn, formatter);
+	    	dateOut =  LocalDate.parse(stringDateOut, formatter);
+	    	loadData(sql_all);
 	    }
 
 	    //*********************************************************//  
