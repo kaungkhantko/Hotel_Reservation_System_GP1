@@ -29,7 +29,7 @@ public class Room {
 		//public SimpleStringProperty actualCheckOut = new SimpleStringProperty();
 		//private boolean checkOutStatus;
 		
-		//public Room() {};
+		public Room() {};
 		public Room (int rowNumber, int roomNo, String roomType, int cost, int maximum, String availability)
 		{
 			super();
@@ -151,6 +151,7 @@ public class Room {
 		{
 			return roomType.get();
 		}
+		
 	//******************************************************************//	
 		
 }		
