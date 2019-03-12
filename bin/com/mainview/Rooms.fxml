@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -8,6 +9,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="542.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainview.RoomsController">
+<AnchorPane prefHeight="542.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainview.RoomsController">
    <children>
       <HBox focusTraversable="true" prefHeight="542.0" prefWidth="286.0">
          <children>
@@ -69,6 +71,9 @@
                                        <font>
                                           <Font size="19.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                                  <opaqueInsets>
@@ -95,6 +100,9 @@
                                        <font>
                                           <Font size="19.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                                  <opaqueInsets>
@@ -121,6 +129,9 @@
                                        <font>
                                           <Font size="19.0" />
                                        </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                                  <opaqueInsets>
@@ -140,16 +151,22 @@
                                        <image>
                                           <Image url="@../../../Icons&amp;Images/Icons/icons8-settings.png" />
                                        </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </ImageView>
                                  </graphic>
                                  <HBox.margin>
-                                    <Insets right="7.0" />
+                                    <Insets bottom="15.0" right="7.0" />
                                  </HBox.margin>
                               </Button>
                               <ImageView fitHeight="80.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../Icons&amp;Images/585e4bf3cb11b227491c339a.png" />
                                  </image>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </HBox.margin>
                               </ImageView>
                            </children>
                            <padding>
@@ -163,7 +180,17 @@
                                     <Insets top="-22.0" />
                                  </VBox.margin>
                               </Line>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#goSignOut" style="-fx-background-color: transparent; -fx-font-size: 15px;" text="Sign Out" />
+                              <Button fx:id="signOutBtn" mnemonicParsing="false" onAction="#goSignOut" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Sign Out" textAlignment="CENTER">
+                                 <effect>
+                                    <Blend />
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Button>
                            </children>
                         </VBox>
                      </children>
@@ -194,12 +221,19 @@
                <children>
                   <AnchorPane prefHeight="123.0" prefWidth="789.0" style="-fx-background-color: #2a5d90; -fx-border-color: grey;">
                      <children>
-                        <DatePicker fx:id="DateInTBox" layoutX="357.0" layoutY="19.0" />
-                        <DatePicker fx:id="DateOutTBox" layoutX="357.0" layoutY="64.0" />
-                        <Label layoutX="251.0" layoutY="24.0" text="Check in Date" textFill="WHITE" />
-                        <Label layoutX="246.0" layoutY="69.0" text="Check out Date" textFill="WHITE" />
-                        <Button layoutX="651.0" layoutY="64.0" mnemonicParsing="false" onAction="#Search" prefHeight="26.0" prefWidth="85.0" text="Search" />
-                        <ComboBox fx:id="RoomTypeCombo" layoutX="26.0" layoutY="19.0" prefHeight="27.0" prefWidth="187.0" promptText=" Room Type" />
+                        <DatePicker fx:id="DateInTBox" layoutX="339.0" layoutY="19.0" />
+                        <DatePicker fx:id="DateOutTBox" layoutX="339.0" layoutY="64.0" />
+                        <Label layoutX="219.0" layoutY="24.0" text="Check in Date" textFill="WHITE" />
+                        <Label layoutX="210.0" layoutY="69.0" text="Check out Date" textFill="WHITE" />
+                        <Button layoutX="651.0" layoutY="64.0" mnemonicParsing="false" onAction="#Search" prefHeight="26.0" prefWidth="85.0" text="Search">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <ComboBox fx:id="RoomTypeCombo" layoutX="26.0" layoutY="19.0" prefWidth="150.0" promptText=" Room Type" />
+                        <Button fx:id="resetBtn" layoutX="651.0" layoutY="19.0" mnemonicParsing="false" onAction="#reset" prefHeight="26.0" prefWidth="85.0" text="Reset">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                      </children>
                   </AnchorPane>
                </children>
