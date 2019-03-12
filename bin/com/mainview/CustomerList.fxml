@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -60,6 +62,9 @@
                                  <font>
                                     <Font size="19.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                            <opaqueInsets>
@@ -86,6 +91,9 @@
                                  <font>
                                     <Font size="19.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                            <opaqueInsets>
@@ -112,6 +120,9 @@
                                  <font>
                                     <Font size="19.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                            <opaqueInsets>
@@ -131,16 +142,22 @@
                                  <image>
                                     <Image url="@../../../Icons&amp;Images/Icons/icons8-settings.png" />
                                  </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </graphic>
                            <HBox.margin>
-                              <Insets right="7.0" />
+                              <Insets bottom="15.0" right="7.0" />
                            </HBox.margin>
                         </Button>
                         <ImageView fitHeight="80.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Icons&amp;Images/585e4bf3cb11b227491c339a.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets bottom="10.0" />
+                           </HBox.margin>
                         </ImageView>
                      </children>
                      <padding>
@@ -154,7 +171,17 @@
                               <Insets top="-22.0" />
                            </VBox.margin>
                         </Line>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#goSignOut" style="-fx-background-color: transparent; -fx-font-size: 15px;" text="Sign Out" />
+                        <Button fx:id="SignOutBtn" mnemonicParsing="false" onAction="#goSignOut" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Sign Out" textAlignment="CENTER">
+                           <effect>
+                              <Blend />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                   </VBox>
                </children>
@@ -192,8 +219,14 @@
                         <CheckBox fx:id="check_OldList" layoutX="137.0" layoutY="81.0" mnemonicParsing="false" text="Old List" textFill="WHITE" />
                         <CheckBox fx:id="check_CurrentList" layoutX="401.0" layoutY="81.0" mnemonicParsing="false" text="Current List" textFill="WHITE" />
                         <CheckBox fx:id="check_BookedList" layoutX="265.0" layoutY="81.0" mnemonicParsing="false" text="Booked List" textFill="WHITE" />
-                        <Button fx:id="SearchBtn" layoutX="667.0" layoutY="24.0" mnemonicParsing="false" onAction="#Search" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Search" />
-                        <Button fx:id="ResetBtn" layoutX="668.0" layoutY="67.0" mnemonicParsing="false" onAction="#Reset" opacity="0.47" prefHeight="27.0" prefWidth="82.0" style="-fx-border-color: grey; -fx-border-radius: 50; -fx-background-radius: 50;" text="Reset" />
+                        <Button fx:id="SearchBtn" layoutX="667.0" layoutY="24.0" mnemonicParsing="false" onAction="#Search" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Search">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Button fx:id="ResetBtn" layoutX="668.0" layoutY="67.0" mnemonicParsing="false" onAction="#Reset" opacity="0.47" prefHeight="27.0" prefWidth="82.0" style="-fx-border-color: grey; -fx-border-radius: 50; -fx-background-radius: 50;" text="Reset">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <TextField fx:id="RoomNoTBox" layoutX="437.0" layoutY="27.0" promptText="Room Number" style="-fx-background-color: white;" />
                      </children>
                   </AnchorPane>

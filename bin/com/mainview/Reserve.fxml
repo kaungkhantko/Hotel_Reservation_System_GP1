@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -60,6 +62,9 @@
                                  <font>
                                     <Font size="19.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                            <opaqueInsets>
@@ -86,6 +91,9 @@
                                  <font>
                                     <Font size="19.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                            <opaqueInsets>
@@ -112,6 +120,9 @@
                                  <font>
                                     <Font size="19.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                            <opaqueInsets>
@@ -131,16 +142,22 @@
                                  <image>
                                     <Image url="@../../../Icons&amp;Images/Icons/icons8-settings.png" />
                                  </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </graphic>
                            <HBox.margin>
-                              <Insets right="7.0" />
+                              <Insets bottom="15.0" right="7.0" />
                            </HBox.margin>
                         </Button>
                         <ImageView fitHeight="80.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Icons&amp;Images/585e4bf3cb11b227491c339a.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets bottom="10.0" />
+                           </HBox.margin>
                         </ImageView>
                      </children>
                      <padding>
@@ -154,7 +171,17 @@
                               <Insets top="-22.0" />
                            </VBox.margin>
                         </Line>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#goSignOut" style="-fx-background-color: transparent; -fx-font-size: 15px;" text="Sign Out" />
+                        <Button fx:id="SignOutBtn" mnemonicParsing="false" onAction="#goSignOut" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Sign Out" textAlignment="CENTER">
+                           <effect>
+                              <Blend />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                   </VBox>
                </children>
@@ -228,16 +255,25 @@
                   <Button layoutX="626.0" layoutY="7.0" mnemonicParsing="false" onAction="#confirm_db" prefHeight="29.0" prefWidth="104.0" style="-fx-background-color: #00add2; -fx-background-radius: 15;" text="Confirm">
                      <font>
                         <Font size="15.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button layoutX="377.0" layoutY="8.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="18.0" prefWidth="27.0" style="-fx-background-radius: 40;" text="+">
                      <font>
                         <Font size="15.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button layoutX="426.0" layoutY="9.0" mnemonicParsing="false" onAction="#cancelRoom" prefHeight="18.0" prefWidth="27.0" style="-fx-background-radius: 40;" text="-">
                      <font>
                         <Font size="15.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Text layoutX="302.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room" wrappingWidth="82.00000450015068">
                      <font>
