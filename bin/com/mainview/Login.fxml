@@ -40,7 +40,7 @@
                         <Font size="19.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="txtUsername" layoutX="53.0" layoutY="202.0" prefHeight="33.0" prefWidth="207.0" style="-fx-border-color: #3449b1; -fx-border-radius: 10; -fx-background-radius: 10;" text="User@novotel" />
+                  <TextField fx:id="txtUsername" layoutX="53.0" layoutY="202.0" prefHeight="33.0" prefWidth="207.0" style="-fx-border-color: #3449b1; -fx-border-radius: 10; -fx-background-radius: 10;" promptText="username"/>
                   <Button fx:id="signBtn" layoutX="109.0" layoutY="341.0" mnemonicParsing="false" opacity="0.8" prefHeight="10.0" prefWidth="92.0" style="-fx-background-color: #38ddff; -fx-background-radius: 13;" text="Sign In">
                      <font>
                         <Font size="14.0" />
