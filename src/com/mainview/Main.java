@@ -12,13 +12,18 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application{
 	
+	static Stage primaryStage;
+	Scene MainScene;
+	
 	@Override
 	public void start(Stage stage) {
 		try {
+			primaryStage = stage;
+			
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Reserve.fxml"));
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.setTitle("Hotel Reservation System");
+			MainScene = new Scene(root);
+			primaryStage.setScene(MainScene);
+			primaryStage.setTitle("Hotel Reservation System");
 			
 			stage.setOnCloseRequest(event -> {
 				
