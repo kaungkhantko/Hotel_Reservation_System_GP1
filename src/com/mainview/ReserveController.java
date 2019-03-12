@@ -110,7 +110,7 @@ import javafx.stage.Stage;
 		cL.setcPhNo2(cPhNo2.getText());
 		cL.setcEmail(cEmail.getText());;
 		
-		cL.setRoomNo(Room.getRoomNo());
+		cL.setRoomNo(Room.getStaticRoomNo());
 		
     	cL.setDateIn(RoomsController.NSAstringDateIn);
     	cL.setDateOut(RoomsController.NSAstringDateOut);

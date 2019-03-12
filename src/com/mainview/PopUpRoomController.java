@@ -107,12 +107,12 @@ public class PopUpRoomController implements Initializable{
 		 public void addTotalCharges() {
 			 
 			 totalCostForExtraBed = extraBedSpinner.getValue() * 10000;
-			 totalCharges = totalCostForExtraBed + Room.getCost();
+			 totalCharges = totalCostForExtraBed + Room.getStaticCost();
 			 
 		 }
 		 public void addAllValues() {
 			 
-			ReserveController.Reservedata.add(new RoomTemp(Room.getRoomNo(), Room.getRoomType(), Room.getCost(), extraBedSpinner.getValue(),PersonSpinner.getValue(),
+			ReserveController.Reservedata.add(new RoomTemp(Room.getStaticRoomNo(), Room.getStaticRoomType(), Room.getStaticCost(), extraBedSpinner.getValue(),PersonSpinner.getValue(),
 					ExtraBedCost, RoomsController.NSAstringDateIn, RoomsController.NSAstringDateOut, totalCharges ));
 			 
 		 }
