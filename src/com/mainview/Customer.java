@@ -1,8 +1,8 @@
 package com.mainview;
-import javafx.beans.property.IntegerProperty;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class Customer {
 	
@@ -11,14 +11,21 @@ public class Customer {
 	public SimpleStringProperty reservedTime = new SimpleStringProperty();
 	public SimpleStringProperty name = new SimpleStringProperty();
 	public SimpleIntegerProperty phoneNumber1 = new SimpleIntegerProperty();
+	public LocalDate dateInTemp;
+	public LocalDate dateOutTemp;
+	public LocalDate actualDateOutTemp;
 	public SimpleStringProperty dateIn = new SimpleStringProperty();
 	public SimpleStringProperty dateOut = new SimpleStringProperty();
+	public SimpleStringProperty actualDateOut = new SimpleStringProperty();
+	public SimpleStringProperty status = new SimpleStringProperty();
 	
 	public SimpleStringProperty testing = new SimpleStringProperty();
+	DateTimeFormatter formatterTemp = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	final DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");  
 	
 
 	
-	public Customer (int customerNo, int roomNo, String reservedTime, String name, int phoneNumber1, String dateIn, String dateOut)
+	public Customer (int customerNo, int roomNo, String reservedTime, String name, int phoneNumber1, String dateIn, String dateOut, String actualDateOut, String status)
 	{
 		super();
 		this.customerNo.set(customerNo);
@@ -26,8 +33,18 @@ public class Customer {
 		this.reservedTime.set(reservedTime);
 		this.name.set(name);
 		this.phoneNumber1.set(phoneNumber1);
-		this.dateIn.set(dateIn);
-		this.dateOut.set(dateOut);
+		this.dateInTemp = LocalDate.parse(dateIn, formatterTemp);
+		this.dateOutTemp = LocalDate.parse(dateOut, formatterTemp);
+		this.dateIn.set(dateInTemp.format(formatter));
+		this.dateOut.set(dateOutTemp.format(formatter));
+		this.status.set(status);
+		if (actualDateOut != null) {
+			if (!actualDateOut.trim().isEmpty())
+			{
+				this.actualDateOutTemp = LocalDate.parse(actualDateOut, formatterTemp);
+				this.actualDateOut.set(actualDateOutTemp.format(formatter));
+			}
+		}
 	}
 
 	public Customer(String testing) {
@@ -90,12 +107,19 @@ public class Customer {
 		public void setDateOut(String dateOut) {
 			this.dateOut.set(dateOut);
 		}
-	
+		
+		public String getStatus() {
+			return status.get();
+		}
+		public void setStatus(String status) {
+			this.status.set(status);
+		}
+		
+		public String getActualDateOut() {
+			return actualDateOut.get();
+		}
+		public void setActualDateOut(String actualDateOut) {
+			this.actualDateOut.set(actualDateOut);
+		}
 
 	}
-	//************************************************/
-
-
-
-	
-

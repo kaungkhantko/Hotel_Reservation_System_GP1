@@ -1,14 +1,6 @@
 package com.mainview;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-
-import javafx.scene.control.DatePicker;
-
 
 public class CustomerTable {
 	
@@ -18,29 +10,32 @@ public class CustomerTable {
 	private String cNRC;
 	private String cEmail;
 	
-	private int personPerRoom;
-	private int extraBed;
+	private static Integer personPerRoom;
+	private int roomNo;
+	private static Integer extraBed;
 	private LocalDate reservedTime;
 	private String dateIn;
-	private String dateOut;
+	private  String dateOut;
 	
-	public CustomerTable (String cName, String cPhNo1, String cPhNo2, String cNRC, String cEmail,int personPerRoom, int roomNo, int extraBed,LocalDate reservedTime, String name, String dateIn, String dateOut, boolean checkOutStatus)
-	{
+	
+	public CustomerTable() {}
+
+	public CustomerTable(String cName, String cPhNo1, String cPhNo2, String cNRC, String cEmail) {
 		super();
 		this.cName = cName;
-		this.cNRC = cNRC;
 		this.cPhNo1 = cPhNo1;
 		this.cPhNo2 = cPhNo2;
+		this.cNRC = cNRC;
 		this.cEmail = cEmail;
-		this.reservedTime = reservedTime;
-		this.dateIn = dateIn;
-		this.dateOut = dateOut;
-		this.extraBed = extraBed;
-		this.personPerRoom = personPerRoom;
 	}
-	
-	
-	
+	public CustomerTable(Integer personPerRoom, Integer extraBed) {
+		super();
+		this.personPerRoom = personPerRoom;
+		this.extraBed = extraBed;
+	}
+
+
+
 	public String getcName() {
 		return cName;
 	}
@@ -89,40 +84,47 @@ public class CustomerTable {
 		this.reservedTime = reservedTime;
 	}
 
-	public String getDateIn() {
+	public  String getDateIn() {
 		return dateIn;
 	}
 
-	public void setDateIn(String dateIn) {
-		this.dateIn = dateIn;
+	public void setDateIn(String DateIn) {
+		dateIn = DateIn;
 	}
 
 	public String getDateOut() {
 		return dateOut;
 	}
 
-	public void setDateOut(String dateOutTBox) {
-		this.dateOut = dateOutTBox;
+	public void setDateOut(String DateOutTBox) {
+		dateOut = DateOutTBox;
 	}
 
-	public int getExtraBed() {
+	public static Integer getExtraBed() {
 		return extraBed;
 	}
 
-	public void setExtraBed(int extraBed) {
-		this.extraBed = extraBed;
+	public static void setExtraBed(Integer ExtraBed) {
+		extraBed = ExtraBed;
 	}
 
-	public int getPersonPerRoom() {
+	public static Integer getPersonPerRoom() {
 		return personPerRoom;
 	}
 
-	public void setPersonPerRoom(int personByRoom) {
-		this.personPerRoom = personByRoom;
+	public static void setPersonPerRoom(Integer PersonByRoom) {
+		personPerRoom = PersonByRoom;
 	}
 
 	public String getcNRC() {
 		return cNRC;
+	}
+	
+	public int getRoomNo() {
+		return roomNo;
+	}
+	public void setRoomNo(int roomNo) {
+		this.roomNo = roomNo;
 	}
 }	
 	

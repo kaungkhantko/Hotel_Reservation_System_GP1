@@ -4,22 +4,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
+
 
 public class PopUpRoomController implements Initializable{
 	
@@ -30,12 +25,21 @@ public class PopUpRoomController implements Initializable{
 	    @FXML private Spinner<Integer> PersonSpinner;
 	    @FXML private Button cancel;
 	    @FXML private Button add;
+	    static boolean flag = false;
 	//******************************************//
 	    
 	    
 	    
+	    
+	//***************Variables for Extra Bed Charges *****//
+		static int totalCostForExtraBed = 0, totalCharges = 0;
+	    String ExtraBedCost = "x 10,000";
+	//***************************************************//
     
-    //******************** Action Event ***********************//
+	    
+	    
+	    
+    //******************** Action Events ***********************//
 	    @FXML public void popUpCancel(ActionEvent event) {
 	    	   Stage stage = (Stage) cancel.getScene().getWindow();
 	  	       stage.close();
@@ -43,49 +47,43 @@ public class PopUpRoomController implements Initializable{
 	    @FXML public void popUpadd(ActionEvent event) throws SQLException, IOException {
        	
 	    SQLinsert sqlINSERT = new SQLinsert();
-    	CustomerTable cL = new CustomerTable(null, null, null, null, null, 0, 0, 0, null, null, null, null, false);
 	
     	
-    	cL.setExtraBed(extraBedSpinner.getValue());
-    	cL.setPersonPerRoom(PersonSpinner.getValue());
+    	CustomerTable.setExtraBed(extraBedSpinner.getValue());
+    	CustomerTable.setPersonPerRoom(PersonSpinner.getValue());
     	
-    	
-    	addSpinnerValues();
-    	
+    	addTotalCharges();
+    	addAllValues();
     	
     	
     	//************************ Inserting into DB **********************//
-    	sqlINSERT.insertPopUpValues(cL.getExtraBed(), cL.getPersonPerRoom());
- 	    Stage stage = (Stage) add.getScene().getWindow();
-	    stage.close();
+    	//sqlINSERT.insertPopUpValues(CustomerTable.getExtraBed(), CustomerTable.getPersonPerRoom());
+ 	    add.getScene().getWindow().hide();
     	//*****************************************************************//
 	    
 	    
 	    
 	    
-	    //********************* Change Scene**********************//
-	    Parent home_page_parent = FXMLLoader.load(getClass().getResource("Reserve.fxml") );
-		Scene home_page_scene = new Scene (home_page_parent);
-		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		app_stage.setScene(home_page_scene);
-		app_stage.show();
-		//**********************************************************//
+	    
+	    //********************* Change Scene **********************//
+		   Parent p = FXMLLoader.load(getClass().getResource("Reserve.fxml") );
+		   Scene pop_up_scene= new Scene (p);
+		   Main.primaryStage.setScene(pop_up_scene);
+		
     }
-	    
-   //*********************************************************//	
-    
-	    
-    
+
 	  
+	    
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			addSpinner();
-		
+			
+			addSpinnerValues();
+			
 		}
 		
-		//********************* Getter & Setter Methods***************//
 		
-		 public Spinner<Integer> getExtraBedSpinner() {
+		//********************* Getter & Setter Methods***************//
+		 public  Spinner<Integer> getExtraBedSpinner() {
 			return extraBedSpinner;
 		}
 		 public void setExtraBedSpinner(Spinner<Integer> extraBedSpinner) {
@@ -98,27 +96,28 @@ public class PopUpRoomController implements Initializable{
 		 public void setPersonSpinner(Spinner<Integer> personSpinner) {
 			this.PersonSpinner = personSpinner;
 		}
-	    
-		 //********************* ************************s***************//
+	//********************* ************************s***************//
 		 
 		 
 		 
 		 
-      //********************** Other Methods *******************//  
-		 
-		 private void addSpinner() {
-		//adding spinner value
+    //********************** Other Methods *******************//  
+		 private void addSpinnerValues() {
 	    extraBedSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3));
 	    PersonSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 5));
 	      }
-		 public void addSpinnerValues() {
+		 public void addTotalCharges() {
 			 
-			 System.out.println(extraBedSpinner.getValue());
-			 System.out.println(PersonSpinner.getValue());
+			 totalCostForExtraBed = extraBedSpinner.getValue() * 10000;
+			 totalCharges = totalCostForExtraBed + Room.getStaticCost();
 			 
-			 ReserveController.Reservedata.add(new RoomTemp( extraBedSpinner.getValue(), PersonSpinner.getValue() ) ) ;
 		 }
-	 //*********************************************************// 
-			
-		
+		 public void addAllValues() {
+			ReserveController.Reservedata.add(new RoomTemp(Room.getStaticRoomNo(), Room.getStaticRoomType(), Room.getStaticCost(), extraBedSpinner.getValue(),PersonSpinner.getValue(),
+					ExtraBedCost, RoomsController.stringDateIn, RoomsController.stringDateOut, totalCharges ));
+			 
+		 }
+   //*********************************************************// 
+
+		 
 }

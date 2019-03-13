@@ -85,7 +85,7 @@ import javafx.stage.Stage;
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		if (loginModel.isDbConnected()) { 
-				isConnected.setText("Connected");
+				//isConnected.setText("Connected");
 		} else{
 				isConnected.setText("Not Connected");
 			 }
@@ -100,6 +100,8 @@ import javafx.stage.Stage;
 						Parent home_page_parent = FXMLLoader.load(getClass().getResource("Rooms.fxml") );
 						Scene home_page_scene = new Scene (home_page_parent);
 						Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+						app_stage.setX(180);
+						app_stage.setY(135);
 						app_stage.setScene(home_page_scene);
 						app_stage.show();
 						

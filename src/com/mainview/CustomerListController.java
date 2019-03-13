@@ -8,37 +8,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
 public class CustomerListController implements Initializable {
 	
-	String sql_all = "SELECT Reserved_Room.RoomNo, Customer.CustomerName, Customer.PhoneNumber1,"
-          		+ " Reservation_Details.ReservedTime, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate"
+	String sql_all = "SELECT *"
           		+ " FROM Customer"
           		+ " INNER JOIN Reservation_Details"
           		+ " ON Customer.CustomerID = Reservation_Details.CustomerID"
@@ -66,12 +55,16 @@ public class CustomerListController implements Initializable {
 	    @FXML private TableColumn<?, ?> ColumnReservationTime;
 	    @FXML private TableColumn<?, ?> ColumnCheckInD;
 	    @FXML private TableColumn<?, ?> ColumnCheckOutD;
+	    @FXML private TableColumn<?, ?> ColumnStatus;
+	    @FXML private TableColumn<?, ?> ColumnActualCheckOutD;
     //*************************************************//
     
 	int i=1;
 	String name;
     String phNo;
 	String roomNo;
+	String dateIn, dateOut;
+	String status;
 		
 	    
     @FXML
@@ -128,6 +121,7 @@ public class CustomerListController implements Initializable {
 	 //******************** Action Event ************************//
     
 	    @FXML void Search(ActionEvent event) {
+	    	
 	    	i = 1;
 	    	list.getItems().clear();
 	    	setCellTable();
@@ -141,7 +135,6 @@ public class CustomerListController implements Initializable {
 				addBookedList();
     }
 	    @FXML void Reset(ActionEvent event) {
-	    	
 	    	Reset();
 	    }
 	 //********************************************************************//
@@ -150,8 +143,9 @@ public class CustomerListController implements Initializable {
  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
 		Reset();
+		
 	}
 
 	//********************** Other Methods *******************//  
@@ -164,10 +158,12 @@ public class CustomerListController implements Initializable {
 			ColumnPhNo1.setCellValueFactory(new PropertyValueFactory<>("phoneNumber1"));
 			ColumnCheckInD.setCellValueFactory(new PropertyValueFactory<>("dateIn"));
 			ColumnCheckOutD.setCellValueFactory(new PropertyValueFactory<>("dateOut"));
+			ColumnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+			ColumnActualCheckOutD.setCellValueFactory(new PropertyValueFactory<>("actualDateOut"));
 			
 		}
 		
-		private void loadData(String sql_input) {
+private void loadData(String sql_input) {
 			
 			
 			String sql = sql_input;
@@ -195,13 +191,21 @@ public class CustomerListController implements Initializable {
 		   	{
 		   		while(rs.next())
 		   	    {
+		   			if(rs.getInt("CheckInStatus") == 1 && rs.getInt("CheckOutStatus") == 1)
+		   				status = "Checked Out";
+		   			if(rs.getInt("CheckInStatus") == 1 && rs.getInt("CheckOutStatus") == 0)
+		   				status = "Checked In";
+		   			if(rs.getInt("CheckInStatus") == 0 && rs.getInt("CheckOutStatus") == 0)
+		   				status = "Booked";
 		   	    Customerdata.add(new Customer(i,
 		   	    rs.getInt("RoomNo"),
 		   	    rs.getString("ReservedTime"),
 		   	    rs.getString("CustomerName"),
 		   	    rs.getInt("PhoneNumber1"),
 		   	    rs.getString("CheckInDate"),
-		   	    rs.getString("CheckOutDate")));
+		   	    rs.getString("CheckOutDate"),
+		   	    rs.getString("ActualCheckOutDate"),
+		   	    status));
 		   	    i++;
 		   	    }
 		   	}
@@ -242,6 +246,7 @@ public class CustomerListController implements Initializable {
 			Customerdata = FXCollections.observableArrayList();
 			loadData(sql_all);	
 		}
+		
    //*********************************************************************//
 
 
