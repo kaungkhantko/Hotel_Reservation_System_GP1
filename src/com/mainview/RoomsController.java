@@ -260,6 +260,7 @@ public class RoomsController implements Initializable {
 			} 
 		   	     roomTable.setItems(data);
 		}
+		
 	    public void fillComboBox() {
 	    	RoomTypeCombo.getItems().add("Any");
 	    	    String sql  = "SELECT RoomType from Room_Type";
