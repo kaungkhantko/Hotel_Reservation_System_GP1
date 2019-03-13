@@ -27,9 +27,7 @@ import javafx.stage.Stage;
 
 public class CustomerListController implements Initializable {
 	
-	String sql_all = //"SELECT Reserved_Room.RoomNo, Customer.CustomerName, Customer.PhoneNumber1,"
-          		//+ " Reservation_Details.ReservedTime, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate, Reserved_Room.CheckInStatus, Reserved_Room.CheckOutStatus, Reserved_Room.ActualCheckOutDate"
-          		"SELECT *"
+	String sql_all = "SELECT *"
           		+ " FROM Customer"
           		+ " INNER JOIN Reservation_Details"
           		+ " ON Customer.CustomerID = Reservation_Details.CustomerID"
