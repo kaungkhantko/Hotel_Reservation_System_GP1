@@ -67,7 +67,7 @@ public class RoomsController implements Initializable {
 	    public static int i;
 	    int maximum;
 	    String availability="";
-	    String sql_all = "Select Room.RoomNo, Room_Type.RoomType, Room_Type.Cost, Room_Type.NumberOfBeds, Room_Type.ExtraBeds, Reserved_Room.CheckInStatus, Reserved_Room.CheckOutStatus, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate\n" + 
+	    String sql_all = "Select *" + 
 				"From Room_Type " + 
 				"INNER JOIN Room " + 
 				"On Room.RoomTypeID = Room_Type.RoomTypeID " + 
@@ -233,7 +233,7 @@ public class RoomsController implements Initializable {
 			
 			if (chosenType != "Any")
 				sql = sql.concat("AND RoomType = "+ "'" + chosenType + "'");
-			sql = sql.concat("GROUP BY Room.RoomNo\n ORDER BY Reserved_Room.CheckOutDate DESC ");
+			sql = sql.concat("GROUP BY Room.RoomNo\n ORDER BY Room_Type.RoomType , Reserved_Room.CheckOutDate DESC");
 
 			
 		   	try(Connection c = SqliteConnection.Connector();

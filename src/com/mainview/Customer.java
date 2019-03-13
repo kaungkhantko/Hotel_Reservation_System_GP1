@@ -13,8 +13,11 @@ public class Customer {
 	public SimpleIntegerProperty phoneNumber1 = new SimpleIntegerProperty();
 	public LocalDate dateInTemp;
 	public LocalDate dateOutTemp;
+	public LocalDate actualDateOutTemp;
 	public SimpleStringProperty dateIn = new SimpleStringProperty();
 	public SimpleStringProperty dateOut = new SimpleStringProperty();
+	public SimpleStringProperty actualDateOut = new SimpleStringProperty();
+	public SimpleStringProperty status = new SimpleStringProperty();
 	
 	public SimpleStringProperty testing = new SimpleStringProperty();
 	DateTimeFormatter formatterTemp = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -22,7 +25,7 @@ public class Customer {
 	
 
 	
-	public Customer (int customerNo, int roomNo, String reservedTime, String name, int phoneNumber1, String dateIn, String dateOut)
+	public Customer (int customerNo, int roomNo, String reservedTime, String name, int phoneNumber1, String dateIn, String dateOut, String actualDateOut, String status)
 	{
 		super();
 		this.customerNo.set(customerNo);
@@ -34,6 +37,14 @@ public class Customer {
 		this.dateOutTemp = LocalDate.parse(dateOut, formatterTemp);
 		this.dateIn.set(dateInTemp.format(formatter));
 		this.dateOut.set(dateOutTemp.format(formatter));
+		this.status.set(status);
+		if (actualDateOut != null) {
+			if (!actualDateOut.trim().isEmpty())
+			{
+				this.actualDateOutTemp = LocalDate.parse(actualDateOut, formatterTemp);
+				this.actualDateOut.set(actualDateOutTemp.format(formatter));
+			}
+		}
 	}
 
 	public Customer(String testing) {
@@ -95,6 +106,20 @@ public class Customer {
 		}
 		public void setDateOut(String dateOut) {
 			this.dateOut.set(dateOut);
+		}
+		
+		public String getStatus() {
+			return status.get();
+		}
+		public void setStatus(String status) {
+			this.status.set(status);
+		}
+		
+		public String getActualDateOut() {
+			return actualDateOut.get();
+		}
+		public void setActualDateOut(String actualDateOut) {
+			this.actualDateOut.set(actualDateOut);
 		}
 
 	}

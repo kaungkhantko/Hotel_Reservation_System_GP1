@@ -27,8 +27,7 @@ import javafx.stage.Stage;
 
 public class CustomerListController implements Initializable {
 	
-	String sql_all = "SELECT Reserved_Room.RoomNo, Customer.CustomerName, Customer.PhoneNumber1,"
-          		+ " Reservation_Details.ReservedTime, Reserved_Room.CheckInDate, Reserved_Room.CheckOutDate"
+	String sql_all = "SELECT *"
           		+ " FROM Customer"
           		+ " INNER JOIN Reservation_Details"
           		+ " ON Customer.CustomerID = Reservation_Details.CustomerID"
@@ -56,6 +55,8 @@ public class CustomerListController implements Initializable {
 	    @FXML private TableColumn<?, ?> ColumnReservationTime;
 	    @FXML private TableColumn<?, ?> ColumnCheckInD;
 	    @FXML private TableColumn<?, ?> ColumnCheckOutD;
+	    @FXML private TableColumn<?, ?> ColumnStatus;
+	    @FXML private TableColumn<?, ?> ColumnActualCheckOutD;
     //*************************************************//
     
 	int i=1;
@@ -63,6 +64,7 @@ public class CustomerListController implements Initializable {
     String phNo;
 	String roomNo;
 	String dateIn, dateOut;
+	String status;
 		
 	    
     @FXML
@@ -156,6 +158,8 @@ public class CustomerListController implements Initializable {
 			ColumnPhNo1.setCellValueFactory(new PropertyValueFactory<>("phoneNumber1"));
 			ColumnCheckInD.setCellValueFactory(new PropertyValueFactory<>("dateIn"));
 			ColumnCheckOutD.setCellValueFactory(new PropertyValueFactory<>("dateOut"));
+			ColumnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+			ColumnActualCheckOutD.setCellValueFactory(new PropertyValueFactory<>("actualDateOut"));
 			
 		}
 		
@@ -187,13 +191,21 @@ private void loadData(String sql_input) {
 		   	{
 		   		while(rs.next())
 		   	    {
+		   			if(rs.getInt("CheckInStatus") == 1 && rs.getInt("CheckOutStatus") == 1)
+		   				status = "Checked Out";
+		   			if(rs.getInt("CheckInStatus") == 1 && rs.getInt("CheckOutStatus") == 0)
+		   				status = "Checked In";
+		   			if(rs.getInt("CheckInStatus") == 0 && rs.getInt("CheckOutStatus") == 0)
+		   				status = "Booked";
 		   	    Customerdata.add(new Customer(i,
 		   	    rs.getInt("RoomNo"),
 		   	    rs.getString("ReservedTime"),
 		   	    rs.getString("CustomerName"),
 		   	    rs.getInt("PhoneNumber1"),
 		   	    rs.getString("CheckInDate"),
-		   	    rs.getString("CheckOutDate")));
+		   	    rs.getString("CheckOutDate"),
+		   	    rs.getString("ActualCheckOutDate"),
+		   	    status));
 		   	    i++;
 		   	    }
 		   	}
@@ -234,6 +246,7 @@ private void loadData(String sql_input) {
 			Customerdata = FXCollections.observableArrayList();
 			loadData(sql_all);	
 		}
+		
    //*********************************************************************//
 
 

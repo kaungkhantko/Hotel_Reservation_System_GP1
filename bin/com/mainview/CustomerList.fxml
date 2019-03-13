@@ -241,8 +241,10 @@
                         <TableColumn fx:id="ColumnCname" prefWidth="134.0" text="Name" />
                         <TableColumn fx:id="ColumnPhNo1" prefWidth="112.0" text="Phone Number" />
                         <TableColumn fx:id="ColumnReservationTime" prefWidth="116.0" text="Reserved Time" />
-                        <TableColumn fx:id="ColumnCheckInD" minWidth="0.0" prefWidth="146.0" text="Check In Date" />
+                        <TableColumn fx:id="ColumnStatus" prefWidth="98.0" text="Status" />
+                        <TableColumn fx:id="ColumnCheckInD" minWidth="0.0" prefWidth="201.0" text="Check In Date" />
                         <TableColumn fx:id="ColumnCheckOutD" prefWidth="153.0" text="Check Out Date" />
+                        <TableColumn fx:id="ColumnActualCheckOutD" prefWidth="153.0" text="Actual Check Out Date" />
                      </columns>
                   </TableView>
                </children>
