@@ -171,7 +171,7 @@
                               <Insets top="-22.0" />
                            </VBox.margin>
                         </Line>
-                      <Button fx:id="SignOutBtn" mnemonicParsing="false" onAction="#goSignOut" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Sign Out" textAlignment="CENTER">
+                        <Button fx:id="SignOutBtn" mnemonicParsing="false" onAction="#goSignOut" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Sign Out" textAlignment="CENTER">
                            <effect>
                               <Blend />
                            </effect>
@@ -219,12 +219,12 @@
                         <CheckBox fx:id="check_OldList" layoutX="137.0" layoutY="81.0" mnemonicParsing="false" text="Old List" textFill="WHITE" />
                         <CheckBox fx:id="check_CurrentList" layoutX="401.0" layoutY="81.0" mnemonicParsing="false" text="Current List" textFill="WHITE" />
                         <CheckBox fx:id="check_BookedList" layoutX="265.0" layoutY="81.0" mnemonicParsing="false" text="Booked List" textFill="WHITE" />
-                        <Button fx:id="SearchBtn" layoutX="667.0" layoutY="24.0" mnemonicParsing="false" onAction="#Search" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Search" />
-                        	<cursor>
+                        <Button fx:id="SearchBtn" layoutX="667.0" layoutY="24.0" mnemonicParsing="false" onAction="#Search" opacity="0.47" prefHeight="34.0" prefWidth="83.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: grey;" text="Search">
+                           <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button fx:id="ResetBtn" layoutX="668.0" layoutY="67.0" mnemonicParsing="false" onAction="#Reset" opacity="0.47" prefHeight="27.0" prefWidth="82.0" style="-fx-border-color: grey; -fx-border-radius: 50; -fx-background-radius: 50;" text="Reset" />
-                        	<cursor>
+                        <Button fx:id="ResetBtn" layoutX="668.0" layoutY="67.0" mnemonicParsing="false" onAction="#Reset" opacity="0.47" prefHeight="27.0" prefWidth="82.0" style="-fx-border-color: grey; -fx-border-radius: 50; -fx-background-radius: 50;" text="Reset">
+                           <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
                         <TextField fx:id="RoomNoTBox" layoutX="437.0" layoutY="27.0" promptText="Room Number" style="-fx-background-color: white;" />
