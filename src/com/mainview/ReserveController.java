@@ -33,7 +33,7 @@ import javafx.stage.Stage;
 	    @FXML  private TextField cPhNo2;
 	    @FXML private TextField cEmail;
   //******************************************//
-    
+    int selectedIndex;
 
     //************ Table Column Variables ************//
 	    @FXML private TableView<RoomTemp> reserveList;
@@ -158,8 +158,12 @@ import javafx.stage.Stage;
 
 	    }
 	    @FXML public void cancelRoom(ActionEvent event) {
+	    	selectedIndex = reserveList.getSelectionModel().getSelectedIndex();
 	    	reserveList.getItems().remove(reserveList.getSelectionModel().getSelectedItem());
-	    	Reservedata.remove(reserveList.getSelectionModel().getSelectedIndex());
+	    	if (selectedIndex >= 0)
+	    		Reservedata.remove(selectedIndex);
+	    	if (selectedIndex < 0)
+	    		Reservedata.clear();
 	    }
     //********************************************************************//
 
