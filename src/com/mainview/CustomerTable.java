@@ -9,6 +9,7 @@ public class CustomerTable {
 	private String cPhNo2;
 	private String cNRC;
 	private String cEmail;
+	public static int CIndex = 8;
 	
 	private static Integer personPerRoom;
 	private int roomNo;
