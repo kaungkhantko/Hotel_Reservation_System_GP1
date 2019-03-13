@@ -3,6 +3,9 @@
 
 	import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -35,6 +38,7 @@ import javafx.stage.Stage;
   //******************************************//
 	    
     int selectedIndex;
+    public  int CIDindex, RIDindex;
 
     //************ Table Column Variables ************//
 	    @FXML private TableView<RoomTemp> reserveList;
@@ -150,7 +154,10 @@ import javafx.stage.Stage;
 		sqlInsert.insertAllInfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail(), CustomerTable.getExtraBed(), CustomerTable.getPersonPerRoom(),
 								cL.getRoomNo(), RoomsController.stringDateIn, RoomsController.stringDateOut);
 		
-	
+		loadCID();
+		sqlInsert.insertCID(CIDindex);
+		loadRID();
+		sqlInsert.insertRID(RIDindex, cL.getRoomNo());
 		
 		//sqlInsert.insertPopUpValues(CustomerTable.getExtraBed(),CustomerTable.getPersonPerRoom());
 		//sqlInsert.insertRoominfo(cL.getRoomNo(),cL.getDateIn(), cL.getDateOut());
@@ -178,12 +185,14 @@ import javafx.stage.Stage;
 	    
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			loadData();
-			setCellTable2();
+			loadRoomData();
+			setReserveCellTable();
+			loadCID();
+			loadRID();
 		}
 		
 		//**********************Other Methods*******************//
-		public void setCellTable2() {
+		public void setReserveCellTable() {
 			
 			ReserveColRoomNo.setCellValueFactory(new PropertyValueFactory<>("RoomNo"));
 			ReserveColRoomType.setCellValueFactory(new PropertyValueFactory<>("RoomType"));
@@ -195,10 +204,48 @@ import javafx.stage.Stage;
 			ReserveColCoutDate.setCellValueFactory(new PropertyValueFactory<>("DateOut"));
 			ReserveColTotal.setCellValueFactory(new PropertyValueFactory<>("TotalCharges"));
 		}
-		public void loadData() {
+		public void loadRoomData() {
 			reserveList.getItems().clear();
 			reserveList.getItems().addAll(Reservedata);			   	
 			}
+		
+	    public void loadCID() {
+	    	
+	    	String CID_query = "SELECT CustomerID " + 
+	    					   " FROM  Customer " + 
+	    					   " WHERE CustomerID = (SELECT MAX(CustomerID) FROM Customer);";
+	    	
+	    	try(Connection conn = SqliteConnection.Connector();
+	    		PreparedStatement pstmt = conn.prepareStatement(CID_query);
+	    		ResultSet rs = pstmt.executeQuery();) {
+	    		
+	    		CIDindex = rs.getInt("CustomerID");
+	    		System.out.println(CIDindex);
+	    		
+	    	} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+				
+			}
+	    }
+	    public void loadRID() {
+	    	
+	    	String RID_query = " SELECT ReservationID FROM Reservation_Details WHERE ReservationID = (SELECT MAX(ReservationID)  FROM Reservation_Details); ";
+		
+	    	
+	    	try(Connection conn = SqliteConnection.Connector();
+		    		PreparedStatement pstmt = conn.prepareStatement(RID_query);
+		    		ResultSet rs = pstmt.executeQuery();) {
+		    		
+		    		RIDindex = rs.getInt("ReservationID");
+		    		System.out.println(RIDindex);
+		    		
+		    	} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+		    	}
+	    }	
 		
 		//*******************************************************//
 		

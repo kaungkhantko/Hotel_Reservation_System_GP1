@@ -32,11 +32,8 @@ public class SQLinsert{
 			String dateIN, String dateOUT) throws SQLException {
 		
 		
-		ResultSet resultSet = null;
 	    String insertCustomerQuery = "INSERT INTO Customer(CustomerName,NRC,PhoneNumber1,PhoneNumber2,Email) VALUES(?,?,?,?,?)";
 	    String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, ExtraBeds, CheckInDate, CheckOutDate, NoOfPeople ) VALUES(?,?,?,?,?)";
-	  //  String insertPopUpQuery = "INSERT INTO Reserved_Room(ExtraBeds, NoOfPeople) VALUES(?,?)";
-	    
 	    
 	    
         try (Connection conn = this.connect();
@@ -71,62 +68,44 @@ public class SQLinsert{
             } catch (SQLException e) { System.out.println(e.getMessage());}
 	}    
 	
-	  public static void main(String[] args) throws SQLException {
+	public void insertCID (int CID) {
+		
+		   String insertIDQuery = "INSERT INTO Reservation_Details (CustomerID) VALUES(?);";
+		    
+	        try (Connection conn = this.connect();
+	            PreparedStatement pstmt = conn.prepareStatement(insertIDQuery);)
+	        {
+		  	        pstmt.setInt(1, CID);
+	                pstmt.execute();
+	                
+	                System.out.println("CID added");
+	                
+	        } catch (SQLException e) { System.out.println(e.getMessage()); }
+	}
+	
+	public void insertRID (int RID, int roomNO) {
+		
+		   String insertIDQuery = "UPDATE Reserved_Room SET ReservationID = ? WHERE	RoomNo = ?";
+		    
+	        try (Connection conn = this.connect();
+	            PreparedStatement pstmt = conn.prepareStatement(insertIDQuery);)
+	        {
+		  	        pstmt.setInt(1, RID);
+		  	        pstmt.setInt(2, roomNO);
+	                pstmt.execute();
+	                
+	                System.out.println("RID added");
+	                
+	        } catch (SQLException e) { System.out.println(e.getMessage()); }
+		
+	}
+	
+	
+	public static void main(String[] args) throws SQLException {
 	    	connect();
 	    }
 
 	}
         
-//        try (Connection conn = this.connect();
-//        	 PreparedStatement pstmt3 = conn.prepareStatement(insertPopUpQuery);)
-//               {
-//		        	
-//			        
-//		            pstmt3.executeUpdate();
-//		                       
-//                   System.out.println("Bed info added");
-//                   
-//               } catch (SQLException e) { System.out.println(e.getMessage());}
-//            
 
-//	 
-//	public void insertRoominfo(int roomNo,String dateIN, String dateOUT) throws SQLException {
-//		
-//		ResultSet resultSet = null;
-//	    String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, CheckInDate, CheckOutDate) VALUES(?,?,?)";
-//
-//        try (Connection conn = this.connect();
-//             PreparedStatement pstmt = conn.prepareStatement(insertRoomQuery)) 
-//        {
-//        	    pstmt.setInt(1, roomNo);
-//	  	        pstmt.setString(2, dateIN);
-//	  	        pstmt.setString(3, dateOUT);
-//                pstmt.executeUpdate();
-//                
-//                System.out.println("Room info added");
-//                
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//	
-//	public void insertPopUpValues(Integer extraBed, Integer person) throws SQLException {
-//		
-//		ResultSet resultSet = null;
-//	    String insertPopUpQuery = "INSERT INTO Reserved_Room(ExtraBeds, NoOfPeople) VALUES(?,?)";
-//
-//        try (Connection conn = this.connect();
-//             PreparedStatement pstmt = conn.prepareStatement(insertPopUpQuery)) 
-//        {
-//	  	        pstmt.setInt(1, extraBed);
-//	  	        pstmt.setInt(2, person);
-//                pstmt.executeUpdate();
-//          
-//	  	        System.out.println("extraBed and no of people added");
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//	 
-  
 	
