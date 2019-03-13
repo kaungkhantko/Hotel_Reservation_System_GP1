@@ -10,12 +10,12 @@ public class CustomerTable {
 	private String cNRC;
 	private String cEmail;
 	
-	private static int personPerRoom;
+	private static Integer personPerRoom;
 	private int roomNo;
-	private static int extraBed;
+	private static Integer extraBed;
 	private LocalDate reservedTime;
-	private static String dateIn;
-	private static String dateOut;
+	private String dateIn;
+	private  String dateOut;
 	
 	
 	public CustomerTable() {}
@@ -28,7 +28,7 @@ public class CustomerTable {
 		this.cNRC = cNRC;
 		this.cEmail = cEmail;
 	}
-	public CustomerTable(int personPerRoom, int extraBed) {
+	public CustomerTable(Integer personPerRoom, Integer extraBed) {
 		super();
 		this.personPerRoom = personPerRoom;
 		this.extraBed = extraBed;
@@ -84,35 +84,35 @@ public class CustomerTable {
 		this.reservedTime = reservedTime;
 	}
 
-	public static String getDateIn() {
+	public  String getDateIn() {
 		return dateIn;
 	}
 
-	public static void setDateIn(String DateIn) {
+	public void setDateIn(String DateIn) {
 		dateIn = DateIn;
 	}
 
-	public static String getDateOut() {
+	public String getDateOut() {
 		return dateOut;
 	}
 
-	public static void setDateOut(String DateOutTBox) {
+	public void setDateOut(String DateOutTBox) {
 		dateOut = DateOutTBox;
 	}
 
-	public static int getExtraBed() {
+	public static Integer getExtraBed() {
 		return extraBed;
 	}
 
-	public static void setExtraBed(int ExtraBed) {
+	public static void setExtraBed(Integer ExtraBed) {
 		extraBed = ExtraBed;
 	}
 
-	public static int getPersonPerRoom() {
+	public static Integer getPersonPerRoom() {
 		return personPerRoom;
 	}
 
-	public static void setPersonPerRoom(int PersonByRoom) {
+	public static void setPersonPerRoom(Integer PersonByRoom) {
 		personPerRoom = PersonByRoom;
 	}
 

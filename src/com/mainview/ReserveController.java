@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 	    @FXML  private TextField cPhNo2;
 	    @FXML private TextField cEmail;
   //******************************************//
+	    
     int selectedIndex;
 
     //************ Table Column Variables ************//
@@ -45,7 +46,7 @@ import javafx.stage.Stage;
 	    @FXML private TableColumn<?, ?> ReserveColPeople;
 	    @FXML private TableColumn<?, ?> ReserveColCinDate;
 	    @FXML private TableColumn<?, ?> ReserveColCoutDate;
-	    @FXML  private TableColumn<?, ?> ReserveColTotal;
+	    @FXML private TableColumn<?, ?> ReserveColTotal;
   //***************************************************//
 
 		    
@@ -110,10 +111,10 @@ import javafx.stage.Stage;
 		cL.setcPhNo2(cPhNo2.getText());
 		cL.setcEmail(cEmail.getText());;
 		
-		cL.setRoomNo(Room.getStaticRoomNo());
 		
-    	cL.setDateIn(RoomsController.NSAstringDateIn);
-    	cL.setDateOut(RoomsController.NSAstringDateOut);
+		cL.setRoomNo(Room.getStaticRoomNo());
+    	cL.setDateIn(RoomsController.stringDateIn);
+    	cL.setDateOut(RoomsController.stringDateOut);
     	
     	
     	System.out.println(cL.getcName());
@@ -123,10 +124,10 @@ import javafx.stage.Stage;
     	System.out.println(cL.getcEmail());
     	
     	System.out.println(cL.getRoomNo());
-    	System.out.println(cL.getExtraBed());
-    	System.out.println(cL.getPersonPerRoom());
-    	System.out.println(cL.getDateIn());
-    	System.out.println(cL.getDateOut()); 
+    	System.out.println(CustomerTable.getExtraBed());
+    	System.out.println(CustomerTable.getPersonPerRoom());
+    	System.out.println(RoomsController.stringDateIn);
+    	System.out.println(RoomsController.stringDateOut); 
     	
     	
 		cName.clear();
@@ -136,17 +137,23 @@ import javafx.stage.Stage;
 		cEmail.clear();
 		reserveList.getItems().clear();
 		
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Customer has been added ");
-        alert.showAndWait();
-        
+		 Alert alert = new Alert(AlertType.INFORMATION);
+         alert.setTitle("Information Dialog");
+         alert.setHeaderText(null);
+         alert.setContentText("Customer has been added ");
+         alert.showAndWait();
+	        
+		
 		
 	    //inserting into db
-		sqlInsert.insertCinfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail());
-		sqlInsert.insertPopUpValues(cL.getExtraBed(), cL.getPersonPerRoom());
-		sqlInsert.insertRoominfo(cL.getRoomNo(),cL.getDateIn(), cL.getDateOut());
+        System.out.println("WTF");
+		sqlInsert.insertAllInfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail(), CustomerTable.getExtraBed(), CustomerTable.getPersonPerRoom(),
+								cL.getRoomNo(), RoomsController.stringDateIn, RoomsController.stringDateOut);
+		
+	
+		
+		//sqlInsert.insertPopUpValues(CustomerTable.getExtraBed(),CustomerTable.getPersonPerRoom());
+		//sqlInsert.insertRoominfo(cL.getRoomNo(),cL.getDateIn(), cL.getDateOut());
 		
 }
 	    @FXML public void addRoom(ActionEvent event) throws IOException {
@@ -192,9 +199,6 @@ import javafx.stage.Stage;
 			reserveList.getItems().clear();
 			reserveList.getItems().addAll(Reservedata);			   	
 			}
-		public void getAllValues() {
-			
-		}
 		
 		//*******************************************************//
 		

@@ -85,7 +85,7 @@ import javafx.stage.Stage;
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		if (loginModel.isDbConnected()) { 
-				isConnected.setText("Connected");
+				//isConnected.setText("Connected");
 		} else{
 				isConnected.setText("Not Connected");
 			 }

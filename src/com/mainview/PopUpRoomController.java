@@ -57,7 +57,7 @@ public class PopUpRoomController implements Initializable{
     	
     	
     	//************************ Inserting into DB **********************//
-    //	sqlINSERT.insertPopUpValues(cL.getExtraBed(), cL.getPersonPerRoom());
+    	//sqlINSERT.insertPopUpValues(CustomerTable.getExtraBed(), CustomerTable.getPersonPerRoom());
  	    add.getScene().getWindow().hide();
     	//*****************************************************************//
 	    
@@ -114,7 +114,7 @@ public class PopUpRoomController implements Initializable{
 		 }
 		 public void addAllValues() {
 			ReserveController.Reservedata.add(new RoomTemp(Room.getStaticRoomNo(), Room.getStaticRoomType(), Room.getStaticCost(), extraBedSpinner.getValue(),PersonSpinner.getValue(),
-					ExtraBedCost, RoomsController.NSAstringDateIn, RoomsController.NSAstringDateOut, totalCharges ));
+					ExtraBedCost, RoomsController.stringDateIn, RoomsController.stringDateOut, totalCharges ));
 			 
 		 }
    //*********************************************************// 

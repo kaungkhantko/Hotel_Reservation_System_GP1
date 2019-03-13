@@ -85,8 +85,8 @@ public class RoomsController implements Initializable {
 		final DateTimeFormatter NSAformatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		
 		LocalDate roomDateOut, roomDateIn;
-		String stringDateIn, stringDateOut;
-		static String NSAstringDateIn, NSAstringDateOut;
+		static String stringDateIn, stringDateOut;
+		String NSAstringDateIn, NSAstringDateOut;
 		
 		LocalDate dateIn, dateOut;
 		String chosenType;
