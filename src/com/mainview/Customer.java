@@ -20,8 +20,8 @@ public class Customer {
 	public SimpleStringProperty status = new SimpleStringProperty();
 	
 	public SimpleStringProperty testing = new SimpleStringProperty();
-	DateTimeFormatter formatterTemp = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	final DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+	public DateTimeFormatter formatterTemp = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	public final DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");  
 	
 
 	
@@ -33,10 +33,22 @@ public class Customer {
 		this.reservedTime.set(reservedTime);
 		this.name.set(name);
 		this.phoneNumber1.set(phoneNumber1);
-		this.dateInTemp = LocalDate.parse(dateIn, formatterTemp);
-		this.dateOutTemp = LocalDate.parse(dateOut, formatterTemp);
-		this.dateIn.set(dateInTemp.format(formatter));
-		this.dateOut.set(dateOutTemp.format(formatter));
+		if (dateIn != null) {
+			if(!dateIn.trim().isEmpty())
+			{
+				this.dateInTemp = LocalDate.parse(dateIn, formatterTemp);
+				this.dateIn.set(dateInTemp.format(formatter));
+			}
+		}
+		
+		if (dateOut != null) {
+			if(!dateOut.trim().isEmpty())
+			{
+				this.dateOutTemp = LocalDate.parse(dateOut, formatterTemp);
+				this.dateOut.set(dateOutTemp.format(formatter));
+			}
+		}
+		
 		this.status.set(status);
 		if (actualDateOut != null) {
 			if (!actualDateOut.trim().isEmpty())
@@ -46,7 +58,7 @@ public class Customer {
 			}
 		}
 	}
-
+	
 	public Customer(String testing) {
 		super();
 		this.testing.set(testing);

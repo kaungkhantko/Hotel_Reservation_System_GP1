@@ -3,10 +3,8 @@ package com.mainview;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class RoomTemp {
+public class RoomTemp2 {
 		
-	
-	
 		public SimpleIntegerProperty RoomNo = new SimpleIntegerProperty();
 		public SimpleStringProperty RoomType = new SimpleStringProperty();
 		public SimpleIntegerProperty Cost = new SimpleIntegerProperty(); //Room Cost
@@ -19,7 +17,7 @@ public class RoomTemp {
 		
 		
 		//********************* Constructor *************************//
-		public RoomTemp(int roomNo, String roomType, int cost, int extraBed ,Integer nOfPeople, String bedValue, 
+		public RoomTemp2(int roomNo, String roomType, int cost, int extraBed ,Integer nOfPeople, String bedValue, 
 				String dateIn, String dateOut,  int totalCharges) {
 			super();
 			RoomNo.set(roomNo);
@@ -37,8 +35,8 @@ public class RoomTemp {
 		
 		
 		
-		public RoomTemp() {};
-		public RoomTemp(int roomNo2, String roomType2, int cost2) {
+		public RoomTemp2() {};
+		public RoomTemp2(int roomNo2, String roomType2, int cost2) {
 			// TODO Auto-generated constructor stub
 		}
 

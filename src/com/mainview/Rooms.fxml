@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="542.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainview.RoomsController">
+<AnchorPane prefHeight="542.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainview.RoomsController">
    <children>
       <HBox focusTraversable="true" prefHeight="542.0" prefWidth="286.0">
          <children>
@@ -221,15 +221,15 @@
                <children>
                   <AnchorPane prefHeight="123.0" prefWidth="789.0" style="-fx-background-color: #2a5d90; -fx-border-color: grey;">
                      <children>
-                        <DatePicker fx:id="DateInTBox" layoutX="339.0" layoutY="19.0" />
-                        <DatePicker fx:id="DateOutTBox" layoutX="339.0" layoutY="64.0" />
-                        <Label layoutX="219.0" layoutY="24.0" text="Check in Date" textFill="WHITE" />
-                        <Label layoutX="210.0" layoutY="69.0" text="Check out Date" textFill="WHITE" />
+                        <DatePicker fx:id="DateInTBox" layoutX="355.0" layoutY="19.0" />
+                        <DatePicker fx:id="DateOutTBox" layoutX="355.0" layoutY="64.0" />
+                        <Label layoutX="249.0" layoutY="24.0" text="Check in Date" textFill="WHITE" />
+                        <Label layoutX="250.0" layoutY="69.0" text="Check out Date" textFill="WHITE" />
                         <Button layoutX="651.0" layoutY="64.0" mnemonicParsing="false" onAction="#Search" prefHeight="26.0" prefWidth="85.0" text="Search">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <ComboBox fx:id="RoomTypeCombo" layoutX="26.0" layoutY="19.0" prefWidth="150.0" promptText=" Room Type" />
+                        <ComboBox fx:id="RoomTypeCombo" layoutX="26.0" layoutY="19.0" prefHeight="27.0" prefWidth="177.0" promptText=" Room Type" />
                         <Button fx:id="resetBtn" layoutX="651.0" layoutY="19.0" mnemonicParsing="false" onAction="#reset" prefHeight="26.0" prefWidth="85.0" text="Reset">
                            <cursor>
                               <Cursor fx:constant="HAND" />

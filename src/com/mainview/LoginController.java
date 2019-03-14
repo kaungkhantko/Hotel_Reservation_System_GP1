@@ -137,7 +137,8 @@ import javafx.stage.Stage;
 								Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 								app_stage.setScene(home_page_scene);
 								app_stage.show();
-								
+								app_stage.setX(180);
+								app_stage.setY(135);
 								
 								isConnected.setText("username and password is correct"); 
 
