@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -39,6 +40,7 @@ import javafx.stage.Stage;
 	    @FXML private TextField cPhNo1;
 	    @FXML  private TextField cPhNo2;
 	    @FXML private TextField cEmail;
+	    @FXML private CheckBox ImmediateCheckInBtn;
   //******************************************//
 	    
     int selectedIndex, rowCount;
@@ -46,11 +48,13 @@ import javafx.stage.Stage;
     public String formattedTime;
 	SQLinsertcopy sqlInsert = new SQLinsertcopy();
 	CustomerTable cL = new CustomerTable();
+	int checkInStatus = 0;
+	int checkOutStatus = 0;
 
     //************ Table Column Variables ************//
 	    @FXML private TableView<RoomTemp> reserveList;
 	    @FXML private TableColumn<?, ?> ReserveColRoomNo;
-	    @FXML private TableColumn<?,?> ReserveColRoomType;
+	    @FXML private TableColumn<?, ?> ReserveColRoomType;
 	    @FXML private TableColumn<?, ?> ReserveColCost;
 	    @FXML private TableColumn<?, ?> ReserveColExtraBed;
 	    @FXML private TableColumn<?, ?> ReserveColBedValue;
@@ -143,6 +147,7 @@ import javafx.stage.Stage;
 		cEmail.clear();
 		reserveList.getItems().clear();
 		Reservedata.clear();
+		ImmediateCheckInBtn.setSelected(false);
 		
 		
 }
@@ -249,6 +254,11 @@ import javafx.stage.Stage;
 	
 	    public void getAllRooms() throws SQLException {
 	    	
+	    	if(ImmediateCheckInBtn.isSelected()==true)
+	    		checkInStatus = 1;
+	    	else
+	    		checkInStatus = 0;
+	    	
 	    	if(rowCount > 1) {
 	    		
     			System.out.println("Row Count:" + rowCount);
@@ -295,7 +305,7 @@ import javafx.stage.Stage;
     				System.out.println(Reservedata.get(rowCount -1).getDateOut());
     				System.out.println(Reservedata.get(rowCount -1).getNoOfPeople());
 	    	    	
-	    	    	sqlInsert.insertRoomInfo( rt2.getExtraBed(), rt2.getNoOfPeople(), rt2.getRoomNo(), rt2.getDateIn(), rt2.getDateOut());
+	    	    	sqlInsert.insertRoomInfo( rt2.getExtraBed(), rt2.getNoOfPeople(), rt2.getRoomNo(), rt2.getDateIn(), rt2.getDateOut(), checkInStatus, checkOutStatus);
 	    	    	sqlInsert.insertCID(CIDindex, formattedTime);
 	  
 	    }

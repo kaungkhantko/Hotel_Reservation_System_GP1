@@ -28,9 +28,9 @@ public class SQLinsertcopy{
         return conn;
     }
  
-	public void insertRoomInfo( Integer extraBed, Integer person, int roomNo, String dateIN, String dateOUT) throws SQLException {
+	public void insertRoomInfo( Integer extraBed, Integer person, int roomNo, String dateIN, String dateOUT, int checkInStatus, int checkOutStatus) throws SQLException {
 	    
-	    String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, ExtraBeds, CheckInDate, CheckOutDate, NoOfPeople ) VALUES(?,?,?,?,?)";
+	    String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, ExtraBeds, CheckInStatus, CheckOutStatus, CheckInDate, CheckOutDate, NoOfPeople ) VALUES(?,?,?,?,?,?,?)";
         
         try (Connection conn = this.connect();
              PreparedStatement pstmt2 = conn.prepareStatement(insertRoomQuery);)
@@ -38,9 +38,11 @@ public class SQLinsertcopy{
         	
         		pstmt2.setInt(1, roomNo);
         		pstmt2.setInt(2, extraBed);
-	        	pstmt2.setString(3, dateIN);
-		        pstmt2.setString(4, dateOUT);
-		        pstmt2.setInt(5, person);
+        		pstmt2.setInt(3, checkInStatus);
+        		pstmt2.setInt(4, checkOutStatus);
+	        	pstmt2.setString(5, dateIN);
+		        pstmt2.setString(6, dateOUT);
+		        pstmt2.setInt(7, person);
                 pstmt2.execute();
                     
                 System.out.println("Date in/out info added");

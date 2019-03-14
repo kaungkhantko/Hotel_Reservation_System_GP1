@@ -222,7 +222,7 @@
                   <TextField fx:id="cPhNo1" layoutX="274.0" layoutY="24.0" promptText="Phone Number 1" />
                   <TextField fx:id="cPhNo2" layoutX="274.0" layoutY="74.0" promptText="Phone Number 2" />
                   <TextField fx:id="cEmail" layoutX="503.0" layoutY="24.0" promptText="Email" />
-                  <CheckBox layoutX="503.0" layoutY="79.0" mnemonicParsing="false" text="Immediate Check in" />
+                  <CheckBox fx:id="ImmediateCheckInBtn" layoutX="503.0" layoutY="79.0" mnemonicParsing="false" text="Immediate Check in" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="45.0" prefWidth="789.0" style="-fx-background-color: #e8784c;">
