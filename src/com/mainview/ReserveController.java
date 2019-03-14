@@ -126,25 +126,23 @@ import javafx.stage.Stage;
     	System.out.println(cL.getcPhNo2());
     	System.out.println(cL.getcEmail());
     	
-    //	sqlInsert.insertCInfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail() );
-		
-    	 getAllRooms();
+    
 	   	 Alert alert = new Alert(AlertType.INFORMATION);
 	     alert.setTitle("Information Dialog");
 	     alert.setHeaderText(null);
 	     alert.setContentText("Customer has been added ");
 	     alert.showAndWait();
 	    	
-	     
-		
-
-   	
+	 	sqlInsert.insertCInfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail() );
+    	getAllRooms();
+    	 
 		cName.clear();
 		cNRC.clear();
 		cPhNo1.clear();
 		cPhNo2.clear();
 		cEmail.clear();
 		reserveList.getItems().clear();
+		Reservedata.clear();
 		
 		
 }
@@ -267,27 +265,21 @@ import javafx.stage.Stage;
         			Reservedata.get(a).setDateOut(rt2.getDateOut());
         			Reservedata.get(a).setNoOfPeople(rt2.getNoOfPeople());
         			
-        			
     				System.out.println(Reservedata.get(a).getRoomNo());
     				System.out.println(Reservedata.get(a).getExtraBed());
     				System.out.println(Reservedata.get(a).getDateIn());
     				System.out.println(Reservedata.get(a).getDateOut());
     				System.out.println(Reservedata.get(a).getNoOfPeople());
     				System.out.println();
+    				
+    				sqlInsert.insertCID(CIDindex, formattedTime);
         		}
+    			
+    			insertRoomInfo2();
         
 	    	} else if ( (rowCount -1) == 0)  { 
 	    				
 	    			System.out.println("Row Count:" + rowCount);
-	    			cL.setRoomNo(Room.getStaticRoomNo());
-	    			cL.setDateIn(RoomsController.stringDateIn);
-	    			cL.setDateOut(RoomsController.stringDateOut);
-	    			
-	    		/*	System.out.println(cL.getRoomNo());
-	    			System.out.println(CustomerTable.getExtraBed());
-	    			System.out.println(CustomerTable.getPersonPerRoom());
-	    			System.out.println(RoomsController.stringDateIn);
-	    			System.out.println(RoomsController.stringDateOut);  */
 	    			
 	    			RoomTemp rt2 = reserveList.getItems().get(rowCount-1);
 	    			
@@ -303,8 +295,8 @@ import javafx.stage.Stage;
     				System.out.println(Reservedata.get(rowCount -1).getDateOut());
     				System.out.println(Reservedata.get(rowCount -1).getNoOfPeople());
 	    	    	
-	    	    //	sqlInsert.insertRoomInfo( rt2.getExtraBed(), rt2.getNoOfPeople(), rt2.getRoomNo(), rt2.getDateIn(), rt2.getDateOut());
-	    	    //	sqlInsert.insertCID(CIDindex, formattedTime);
+	    	    	sqlInsert.insertRoomInfo( rt2.getExtraBed(), rt2.getNoOfPeople(), rt2.getRoomNo(), rt2.getDateIn(), rt2.getDateOut());
+	    	    	sqlInsert.insertCID(CIDindex, formattedTime);
 	  
 	    }
 	}
@@ -316,15 +308,15 @@ import javafx.stage.Stage;
 		        try (Connection conn =  SqliteConnection.Connector();
 		             PreparedStatement pstmt2 = conn.prepareStatement(insertRoomQuery);)
 		            {	
-		        		for(int a =0; a > rowCount-1; a++) {
+		        		for(int a =0; a <= rowCount-1; a++) {
 		        			
 		        			pstmt2.setInt(1, Reservedata.get(a).getRoomNo());
 		        			pstmt2.setInt(2, Reservedata.get(a).getExtraBed());
 		        			pstmt2.setString(3, Reservedata.get(a).getDateIn());
 		        			pstmt2.setString(4, Reservedata.get(a).getDateOut());
 		        			pstmt2.setInt(5, Reservedata.get(a).getNoOfPeople());
-		        			
 		        			pstmt2.execute();
+		        		
 		        		}
 		                
 		            } catch (SQLException e) { System.out.println(e.getMessage());}
@@ -332,47 +324,5 @@ import javafx.stage.Stage;
 	    
 	    //*******************************************************//
 }
-	
-	
-	
-	    //	sqlInsert.insertRoomInfo( rt2.getExtraBed(), rt2.getNoOfPeople(), rt2.getRoomNo(), rt2.getDateIn(), rt2.getDateOut());
-	    //	sqlInsert.insertCID(CIDindex, formattedTime);
-/* 		
-		System.out.println("Row count: " + rowCount);
-	   	cL.setRoomNo(Room.getStaticRoomNo());
-    	cL.setDateIn(RoomsController.stringDateIn);
-    	cL.setDateOut(RoomsController.stringDateOut);
-    	
-   		System.out.println(cL.getRoomNo());
-    	System.out.println(CustomerTable.getExtraBed());
-    	System.out.println(CustomerTable.getPersonPerRoom());
-    	System.out.println(RoomsController.stringDateIn);
-    	System.out.println(RoomsController.stringDateOut); 
-    	
-    	sqlInsert.insertRoomInfo(CustomerTable.getExtraBed(), CustomerTable.getPersonPerRoom(),cL.getRoomNo(), RoomsController.stringDateIn, RoomsController.stringDateOut);
-    	
-		loadCID();
-		sqlInsert.insertCID(CIDindex, formattedTime);
-		loadRID();
-		
-//		sqlInsert.insertRID(RIDindex, cL.getRoomNo());
-		
-*/	
-
-  	//    	sqlInsert.insertRoomInfo( rt2.getExtraBed(), rt2.getNoOfPeople(), rt2.getRoomNo(), rt2.getDateIn(), rt2.getDateOut());
-  	//    	sqlInsert.insertCID(CIDindex, formattedTime);
-
-	
-	/*	
-	cL.setRoomNo(Room.getStaticRoomNo());
-	cL.setDateIn(RoomsController.stringDateIn);
-	cL.setDateOut(RoomsController.stringDateOut);
-	
-		System.out.println(cL.getRoomNo());
-	System.out.println(CustomerTable.getExtraBed());
-	System.out.println(CustomerTable.getPersonPerRoom());
-	System.out.println(RoomsController.stringDateIn);
-	System.out.println(RoomsController.stringDateOut); 
-*/
 	
 
