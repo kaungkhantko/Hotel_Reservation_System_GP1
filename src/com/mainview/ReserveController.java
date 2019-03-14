@@ -257,7 +257,7 @@ import javafx.stage.Stage;
     			
     			//insertRoomInfo2(); 
     			
-    			for(int a =0; a > rowCount-1; a++) {
+    			for(int a =0; a <= rowCount-1; a++) { // a < 1
     				
     				RoomTemp rt2 = reserveList.getItems().get(a);
         			
@@ -266,6 +266,7 @@ import javafx.stage.Stage;
         			Reservedata.get(a).setDateIn(rt2.getDateIn());
         			Reservedata.get(a).setDateOut(rt2.getDateOut());
         			Reservedata.get(a).setNoOfPeople(rt2.getNoOfPeople());
+        			
         			
     				System.out.println(Reservedata.get(a).getRoomNo());
     				System.out.println(Reservedata.get(a).getExtraBed());
