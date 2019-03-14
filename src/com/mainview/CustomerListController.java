@@ -195,18 +195,12 @@ public class CustomerListController implements Initializable {
 	public void Update(){
 		selectedCustomer = list.getSelectionModel().getSelectedItem();
 		String sql = "UPDATE Reserved_Room ";
-		if(check == "Check In") {
+		if(check == "Check In")
 			sql = sql.concat("SET CheckInStatus = 1 ");
-		}
 		if(check == "Check Out") 
 			sql = sql.concat("SET CheckOutStatus = 1, ActualCheckOutDate = '" + LocalDate.now().format(formatter) +"'");
 		
 		sql = sql.concat("WHERE RoomNo = ? AND CheckInDate = ? AND CheckOutDate = ?");
-
-		System.out.println(check);
-		System.out.println(selectedCustomer.getRoomNo());
-		System.out.println(selectedCustomer.dateInTemp.format(formatter));
-		System.out.println(selectedCustomer.dateOutTemp.format(formatter));
 		Connection c = null;
 		try{
 			c = SqliteConnection.Connector();
