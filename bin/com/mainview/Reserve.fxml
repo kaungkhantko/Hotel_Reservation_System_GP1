@@ -222,7 +222,7 @@
                   <TextField fx:id="cPhNo1" layoutX="274.0" layoutY="24.0" promptText="Phone Number 1" />
                   <TextField fx:id="cPhNo2" layoutX="274.0" layoutY="74.0" promptText="Phone Number 2" />
                   <TextField fx:id="cEmail" layoutX="503.0" layoutY="24.0" promptText="Email" />
-                  <CheckBox layoutX="503.0" layoutY="79.0" mnemonicParsing="false" text="Immediate Check in" />
+                  <CheckBox fx:id="ImmediateCheckInBtn" layoutX="503.0" layoutY="79.0" mnemonicParsing="false" text="Immediate Check in" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="45.0" prefWidth="789.0" style="-fx-background-color: #e8784c;">
@@ -239,14 +239,14 @@
                   <TableView fx:id="reserveList" prefHeight="312.0" prefWidth="789.0">
                      <columns>
                         <TableColumn fx:id="ReserveColRoomNo" prefWidth="56.0" text="Room " />
-                        <TableColumn fx:id="ReserveColRoomType" prefWidth="120.0" text="Type" />
-                        <TableColumn fx:id="ReserveColCost" prefWidth="90.0" text="Cost" />
-                        <TableColumn fx:id="ReserveColExtraBed" prefWidth="75.05816650390625" text="Extra Bed" />
-                        <TableColumn fx:id="ReserveColBedValue" prefWidth="90.9185791015625" text="Per Extra Bed" />
-                        <TableColumn fx:id="ReserveColPeople" prefWidth="55.1163330078125" text="Person" />
-                        <TableColumn fx:id="ReserveColCinDate" prefWidth="102.06402587890625" text="Check in Date" />
-                        <TableColumn fx:id="ReserveColCoutDate" prefWidth="103.05816650390625" text="Check out Date" />
-                        <TableColumn fx:id="ReserveColTotal" prefWidth="107.94183349609375" text="Total" />
+                        <TableColumn fx:id="ReserveColRoomType" prefWidth="138.0" text="Type" />
+                        <TableColumn fx:id="ReserveColCost" prefWidth="89.0" text="Cost" />
+                        <TableColumn fx:id="ReserveColExtraBed" prefWidth="73.0" text="Extra Bed" />
+                        <TableColumn fx:id="ReserveColBedValue" prefWidth="96.0" text="Per Extra Bed" />
+                        <TableColumn fx:id="ReserveColPeople" prefWidth="54.0" text="Person" />
+                        <TableColumn fx:id="ReserveColCinDate" prefWidth="98.0" text="Check in Date" />
+                        <TableColumn fx:id="ReserveColCoutDate" prefWidth="105.0" text="Check out Date" />
+                        <TableColumn fx:id="ReserveColTotal" prefWidth="81.0" text="Total" />
                      </columns>
                   </TableView>
                </children>

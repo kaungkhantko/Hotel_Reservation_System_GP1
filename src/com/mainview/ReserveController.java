@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -23,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -35,15 +40,21 @@ import javafx.stage.Stage;
 	    @FXML private TextField cPhNo1;
 	    @FXML  private TextField cPhNo2;
 	    @FXML private TextField cEmail;
+	    @FXML private CheckBox ImmediateCheckInBtn;
   //******************************************//
 	    
-    int selectedIndex;
+    int selectedIndex, rowCount;
     public  int CIDindex, RIDindex;
+    public String formattedTime;
+	SQLinsertcopy sqlInsert = new SQLinsertcopy();
+	CustomerTable cL = new CustomerTable();
+	int checkInStatus = 0;
+	int checkOutStatus = 0;
 
     //************ Table Column Variables ************//
 	    @FXML private TableView<RoomTemp> reserveList;
 	    @FXML private TableColumn<?, ?> ReserveColRoomNo;
-	    @FXML private TableColumn<?,?> ReserveColRoomType;
+	    @FXML private TableColumn<?, ?> ReserveColRoomType;
 	    @FXML private TableColumn<?, ?> ReserveColCost;
 	    @FXML private TableColumn<?, ?> ReserveColExtraBed;
 	    @FXML private TableColumn<?, ?> ReserveColBedValue;
@@ -105,62 +116,39 @@ import javafx.stage.Stage;
 	
     //**********Receiving data from UI and Inserting into DB********//
 	
-		SQLinsert sqlInsert = new SQLinsert();
 		CustomerTable cL = new CustomerTable();
 		
-		
 		cL.setcName(cName.getText());
-		cL.setcNRC(cNRC.getText());;
+		cL.setcNRC(cNRC.getText());
 		cL.setcPhNo1(cPhNo1.getText());
 		cL.setcPhNo2(cPhNo2.getText());
-		cL.setcEmail(cEmail.getText());;
+		cL.setcEmail(cEmail.getText());
 		
-		
-		cL.setRoomNo(Room.getStaticRoomNo());
-    	cL.setDateIn(RoomsController.stringDateIn);
-    	cL.setDateOut(RoomsController.stringDateOut);
-    	
-    	
     	System.out.println(cL.getcName());
     	System.out.println(cL.getNRC());
     	System.out.println(cL.getcPhNo1());
     	System.out.println(cL.getcPhNo2());
     	System.out.println(cL.getcEmail());
     	
-    	System.out.println(cL.getRoomNo());
-    	System.out.println(CustomerTable.getExtraBed());
-    	System.out.println(CustomerTable.getPersonPerRoom());
-    	System.out.println(RoomsController.stringDateIn);
-    	System.out.println(RoomsController.stringDateOut); 
-    	
-    	
+    
+	   	 Alert alert = new Alert(AlertType.INFORMATION);
+	     alert.setTitle("Information Dialog");
+	     alert.setHeaderText(null);
+	     alert.setContentText("Customer has been added ");
+	     alert.showAndWait();
+	    	
+	 	sqlInsert.insertCInfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail() );
+    	getAllRooms();
+    	 
 		cName.clear();
 		cNRC.clear();
 		cPhNo1.clear();
 		cPhNo2.clear();
 		cEmail.clear();
 		reserveList.getItems().clear();
+		Reservedata.clear();
+		ImmediateCheckInBtn.setSelected(false);
 		
-		 Alert alert = new Alert(AlertType.INFORMATION);
-         alert.setTitle("Information Dialog");
-         alert.setHeaderText(null);
-         alert.setContentText("Customer has been added ");
-         alert.showAndWait();
-	        
-		
-		
-	    //inserting into db
-        System.out.println("WTF");
-		sqlInsert.insertAllInfo(cL.getcName(), cL.getNRC(), cL.getcPhNo1(), cL.getcPhNo2(), cL.getcEmail(), CustomerTable.getExtraBed(), CustomerTable.getPersonPerRoom(),
-								cL.getRoomNo(), RoomsController.stringDateIn, RoomsController.stringDateOut);
-		
-		loadCID();
-		sqlInsert.insertCID(CIDindex);
-		loadRID();
-		sqlInsert.insertRID(RIDindex, cL.getRoomNo());
-		
-		//sqlInsert.insertPopUpValues(CustomerTable.getExtraBed(),CustomerTable.getPersonPerRoom());
-		//sqlInsert.insertRoominfo(cL.getRoomNo(),cL.getDateIn(), cL.getDateOut());
 		
 }
 	    @FXML public void addRoom(ActionEvent event) throws IOException {
@@ -173,6 +161,7 @@ import javafx.stage.Stage;
 	    }
 	    @FXML public void cancelRoom(ActionEvent event) {
 	    	selectedIndex = reserveList.getSelectionModel().getSelectedIndex();
+	    	System.out.println(selectedIndex);
 	    	reserveList.getItems().remove(reserveList.getSelectionModel().getSelectedItem());
 	    	if (selectedIndex >= 0)
 	    		Reservedata.remove(selectedIndex);
@@ -185,12 +174,21 @@ import javafx.stage.Stage;
 	    
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
+			
+			System.out.println("Reserve Initializable");
+			reserveList.setEditable(false);
 			loadRoomData();
 			setReserveCellTable();
-			loadCID();
-			loadRID();
-		}
+			rowCount = reserveList.getItems().size(); // size = 8;
+			System.out.println("Row Count: " + rowCount);
 		
+			
+			getCurrentTime();
+			loadCID();
+			//loadRID();
+	}		
+
+			
 		//**********************Other Methods*******************//
 		public void setReserveCellTable() {
 			
@@ -220,7 +218,7 @@ import javafx.stage.Stage;
 	    		ResultSet rs = pstmt.executeQuery();) {
 	    		
 	    		CIDindex = rs.getInt("CustomerID");
-	    		System.out.println(CIDindex);
+	    		System.out.println("CustomerID" + CIDindex);
 	    		
 	    	} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -246,10 +244,95 @@ import javafx.stage.Stage;
 					e.printStackTrace();
 		    	}
 	    }	
-		
-		//*******************************************************//
-		
+	    public  void getCurrentTime() {
+	        Calendar cal = Calendar.getInstance();
+	        Date date=cal.getTime();
+	        DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd hh:mm a");
+	        formattedTime = dateFormat.format(date);
+	        System.out.println("Current time : "+ formattedTime);
+	    }
+	
+	    public void getAllRooms() throws SQLException {
+	    	
+	    	if(ImmediateCheckInBtn.isSelected()==true)
+	    		checkInStatus = 1;
+	    	else
+	    		checkInStatus = 0;
+	    	
+	    	if(rowCount > 1) {
+	    		
+    			System.out.println("Row Count:" + rowCount);
+    			
+    			//insertRoomInfo2(); 
+    			
+    			for(int a =0; a <= rowCount-1; a++) { // a < 1
+    				
+    				RoomTemp rt2 = reserveList.getItems().get(a);
+        			
+        			Reservedata.get(a).setRoomNo(rt2.getRoomNo());
+        			Reservedata.get(a).setExtraBed(rt2.getExtraBed());
+        			Reservedata.get(a).setDateIn(rt2.getDateIn());
+        			Reservedata.get(a).setDateOut(rt2.getDateOut());
+        			Reservedata.get(a).setNoOfPeople(rt2.getNoOfPeople());
+        			
+    				System.out.println(Reservedata.get(a).getRoomNo());
+    				System.out.println(Reservedata.get(a).getExtraBed());
+    				System.out.println(Reservedata.get(a).getDateIn());
+    				System.out.println(Reservedata.get(a).getDateOut());
+    				System.out.println(Reservedata.get(a).getNoOfPeople());
+    				System.out.println();
+    				
+    				sqlInsert.insertCID(CIDindex, formattedTime);
+        		}
+    			
+    			insertRoomInfo2();
+        
+	    	} else if ( (rowCount -1) == 0)  { 
+	    				
+	    			System.out.println("Row Count:" + rowCount);
+	    			
+	    			RoomTemp rt2 = reserveList.getItems().get(rowCount-1);
+	    			
+	    			Reservedata.get(0).setRoomNo(rt2.getRoomNo());
+	    			Reservedata.get(0).setExtraBed(rt2.getExtraBed());
+	    			Reservedata.get(0).setDateIn(rt2.getDateIn());
+	    			Reservedata.get(0).setDateOut(rt2.getDateOut());
+	    			Reservedata.get(0).setNoOfPeople(rt2.getNoOfPeople());
+	    			
+	    			System.out.println(Reservedata.get(rowCount -1 ).getRoomNo());
+    				System.out.println(Reservedata.get(rowCount -1).getExtraBed());
+    				System.out.println(Reservedata.get(rowCount -1).getDateIn());
+    				System.out.println(Reservedata.get(rowCount -1).getDateOut());
+    				System.out.println(Reservedata.get(rowCount -1).getNoOfPeople());
+	    	    	
+	    	    	sqlInsert.insertRoomInfo( rt2.getExtraBed(), rt2.getNoOfPeople(), rt2.getRoomNo(), rt2.getDateIn(), rt2.getDateOut(), checkInStatus, checkOutStatus);
+	    	    	sqlInsert.insertCID(CIDindex, formattedTime);
+	  
+	    }
 	}
-
-
+	   
+		public void insertRoomInfo2() {
+			
+			  String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, ExtraBeds, CheckInDate, CheckOutDate, NoOfPeople ) VALUES(?,?,?,?,?)";
+		        
+		        try (Connection conn =  SqliteConnection.Connector();
+		             PreparedStatement pstmt2 = conn.prepareStatement(insertRoomQuery);)
+		            {	
+		        		for(int a =0; a <= rowCount-1; a++) {
+		        			
+		        			pstmt2.setInt(1, Reservedata.get(a).getRoomNo());
+		        			pstmt2.setInt(2, Reservedata.get(a).getExtraBed());
+		        			pstmt2.setString(3, Reservedata.get(a).getDateIn());
+		        			pstmt2.setString(4, Reservedata.get(a).getDateOut());
+		        			pstmt2.setInt(5, Reservedata.get(a).getNoOfPeople());
+		        			pstmt2.execute();
+		        		
+		        		}
+		                
+		            } catch (SQLException e) { System.out.println(e.getMessage());}
+		}
+	    
+	    //*******************************************************//
+}
+	
 

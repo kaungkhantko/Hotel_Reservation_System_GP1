@@ -182,7 +182,6 @@ public class RoomsController implements Initializable {
 		
 		
 		
-		
 		//Pop up window appearing
 		roomTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
 		@Override public void handle(MouseEvent event) {
@@ -201,10 +200,8 @@ public class RoomsController implements Initializable {
 				 stage.show();  
 				
 				 try { fetchData();} 
-			     catch (IOException e) { e.printStackTrace();}	
+			     catch (IOException e) { e.printStackTrace();}
 				
-		    	 System.out.println("Fetched selected item");
-		    	
 
 				}	
 			
@@ -286,10 +283,6 @@ public class RoomsController implements Initializable {
 	         r.staticCost = roomTable.getSelectionModel().getSelectedItem().cost;
 	         r.staticRoomNo = roomTable.getSelectionModel().getSelectedItem().roomNo;
 	         r.staticRoomType = roomTable.getSelectionModel().getSelectedItem().roomType;
-	         
-	    	if(roomTable.getSelectionModel().getSelectedItem() != null) {
-		    	
-	    	} else { System.out.println("Fetched Null"); }
 
 	   }
 	    public void checkAvailability() {
@@ -302,6 +295,7 @@ public class RoomsController implements Initializable {
 	    }
 	    
 	    public void reset() {
+	    	
 	    	i=1;
 	    	roomTable.getItems().clear();
 	    	

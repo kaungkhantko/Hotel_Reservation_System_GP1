@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class SQLinsert{
+public class SQLinsertcopy{
 	
 	private static Connection connect() {
 		
@@ -28,29 +28,9 @@ public class SQLinsert{
         return conn;
     }
  
-	public void insertAllInfo( String name, String NRC, String Ph1, String Ph2, String Email ,Integer extraBed, Integer person, int roomNo,
-			String dateIN, String dateOUT) throws SQLException {
-		
-		
-	    String insertCustomerQuery = "INSERT INTO Customer(CustomerName,NRC,PhoneNumber1,PhoneNumber2,Email) VALUES(?,?,?,?,?)";
-	    String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, ExtraBeds, CheckInDate, CheckOutDate, NoOfPeople ) VALUES(?,?,?,?,?)";
+	public void insertRoomInfo( Integer extraBed, Integer person, int roomNo, String dateIN, String dateOUT, int checkInStatus, int checkOutStatus) throws SQLException {
 	    
-	    
-        try (Connection conn = this.connect();
-            PreparedStatement pstmt1 = conn.prepareStatement(insertCustomerQuery);)
-        {
-	  	        pstmt1.setString(1, name);
-	  	        pstmt1.setString(2, NRC);
-	  	        pstmt1.setString(3, Ph1);
-	  	        pstmt1.setString(4, Ph2);
-	  	        pstmt1.setString(5, Email);
-                pstmt1.execute();
-                
-                System.out.println("C info added");
-                
-        } catch (SQLException e) { System.out.println(e.getMessage()); }
-        
-        
+	    String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, ExtraBeds, CheckInStatus, CheckOutStatus, CheckInDate, CheckOutDate, NoOfPeople ) VALUES(?,?,?,?,?,?,?)";
         
         try (Connection conn = this.connect();
              PreparedStatement pstmt2 = conn.prepareStatement(insertRoomQuery);)
@@ -58,15 +38,19 @@ public class SQLinsert{
         	
         		pstmt2.setInt(1, roomNo);
         		pstmt2.setInt(2, extraBed);
-	        	pstmt2.setString(3, dateIN);
-		        pstmt2.setString(4, dateOUT);
-		        pstmt2.setInt(5, person);
+        		pstmt2.setInt(3, checkInStatus);
+        		pstmt2.setInt(4, checkOutStatus);
+	        	pstmt2.setString(5, dateIN);
+		        pstmt2.setString(6, dateOUT);
+		        pstmt2.setInt(7, person);
                 pstmt2.execute();
                     
                 System.out.println("Date in/out info added");
                 
             } catch (SQLException e) { System.out.println(e.getMessage());}
 	}    
+	
+
 	
 	
 	public void insertCID (int CID, String reservedTime) {
@@ -101,7 +85,28 @@ public class SQLinsert{
 	        } catch (SQLException e) { System.out.println(e.getMessage()); }
 		
 	}
-	
+		
+	public void insertCInfo(String name, String NRC, String Ph1, String Ph2, String Email ) {
+		
+		String insertCustomerQuery = "INSERT INTO Customer(CustomerName,NRC,PhoneNumber1,PhoneNumber2,Email) VALUES(?,?,?,?,?)";
+		
+	    
+        try (Connection conn = this.connect();
+            PreparedStatement pstmt1 = conn.prepareStatement(insertCustomerQuery);)
+        {
+	  	        pstmt1.setString(1, name);
+	  	        pstmt1.setString(2, NRC);
+	  	        pstmt1.setString(3, Ph1);
+	  	        pstmt1.setString(4, Ph2);
+	  	        pstmt1.setString(5, Email);
+                pstmt1.execute();
+                
+                System.out.println("C info added");
+                
+        } catch (SQLException e) { System.out.println(e.getMessage()); }
+		
+		
+	}
 	
 	public static void main(String[] args) throws SQLException {
 	    	connect();
