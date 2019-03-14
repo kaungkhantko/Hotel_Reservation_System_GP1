@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -43,6 +44,8 @@ public class CustomerListController implements Initializable {
           		+ " INNER JOIN Reserved_Room"
           		+ " ON Reservation_Details.ReservationID = Reserved_Room.ReservationID";
 	
+	String sql_refresh = sql_all;
+	
 	//************* Other Variables********//
 		@FXML private TextField NameTBox;
 	    @FXML private TextField PhNoTBox;
@@ -76,15 +79,18 @@ public class CustomerListController implements Initializable {
 	String status;
 	Customer selectedCustomer;
 	String check;
-	
-	ContextMenu contextMenu = new ContextMenu();
-	MenuItem checkIn = new MenuItem("Check In");
-	MenuItem checkOut = new MenuItem("Check Out");
-	
 	public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	
+	
+	@FXML private ContextMenu contextMenu;
+	@FXML private MenuItem checkIn;
+	@FXML private MenuItem checkOut;
+	
+	//MenuItem checkIn = new MenuItem("Check In");
+	//MenuItem checkOut = new MenuItem("Check Out");
 	    
     @FXML
-    private ObservableList<Customer> Customerdata;
+    private ObservableList<Customer> Customerdata = FXCollections.observableArrayList();
     
     
     
@@ -137,21 +143,32 @@ public class CustomerListController implements Initializable {
 	 //******************** Action Event ************************//
     
 	    @FXML void Search(ActionEvent event) {
-	    	
+	    	sql_refresh = sql_all;
 	    	i = 1;
 	    	list.getItems().clear();
 	    	setCellTable();
-			Customerdata = FXCollections.observableArrayList();
 			
 			if (check_OldList.isSelected()==true)
-				addOldList();
+				sql_refresh = sql_refresh.concat(addOldList());
 			if (check_CurrentList.isSelected()==true)
-				addCurrentList();
+				sql_refresh = sql_refresh.concat(addCurrentList());
 			if (check_BookedList.isSelected()==true)
-				addBookedList();
-    }
+				sql_refresh = sql_refresh.concat(addBookedList());
+			
+	    }
+	    
 	    @FXML void Reset(ActionEvent event) {
 	    	Reset();
+	    }
+	    
+	    @FXML void checkIn(ActionEvent event) {
+	    	check = "Check In";
+			Update();
+	    }
+	    
+	    @FXML void checkOut(ActionEvent event) {
+	    	check = "Check Out";
+			Update();
 	    }
 	 //********************************************************************//
 	    
@@ -161,10 +178,7 @@ public class CustomerListController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		Reset();
-		
-		contextMenu.getItems().addAll(checkIn, checkOut);
 		contextMenu.setAutoHide(true);
-		
 		
 		list.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() 
 		{
@@ -176,67 +190,40 @@ public class CustomerListController implements Initializable {
 			}
 		});
 		
-		checkIn.setOnAction(new EventHandler<ActionEvent>()
-		{
-			@Override
-			public void handle(ActionEvent e) 
-			{
-				selectedCustomer = list.getSelectionModel().getSelectedItem();
-				check = "Check In";
-				Update();
-			}
-		});
-		
-		checkOut.setOnAction(new EventHandler<ActionEvent>()
-		{
-			@Override
-			public void handle(ActionEvent e) 
-			{
-				selectedCustomer = list.getSelectionModel().getSelectedItem();
-				check = "Check Out";
-				Update();
-			}
-		});
 	}
 	
-	public void Update() {
+	public void Update(){
+		selectedCustomer = list.getSelectionModel().getSelectedItem();
 		String sql = "UPDATE Reserved_Room ";
-		if(check == "Check In")
+		if(check == "Check In") {
 			sql = sql.concat("SET CheckInStatus = 1 ");
-		if(check == "Check Out")
-			sql = sql.concat("SET CheckOutStatus = 1 ");
-		sql = sql.concat("WHERE RoomNo = " + selectedCustomer.getRoomNo() + " AND CheckInDate = ? AND CheckOutDate = ?");
-		PreparedStatement preparedStatement = null;
-		Connection c = null;
+		}
+		if(check == "Check Out") 
+			sql = sql.concat("SET CheckOutStatus = 1, ActualCheckOutDate = '" + LocalDate.now().format(formatter) +"'");
 		
-		try
-		{
+		sql = sql.concat("WHERE RoomNo = ? AND CheckInDate = ? AND CheckOutDate = ?");
+
+		System.out.println(check);
+		System.out.println(selectedCustomer.getRoomNo());
+		System.out.println(selectedCustomer.dateInTemp.format(formatter));
+		System.out.println(selectedCustomer.dateOutTemp.format(formatter));
+		Connection c = null;
+		try{
 			c = SqliteConnection.Connector();
-			preparedStatement = c.prepareStatement(sql);
-			//System.out.println(selectedCustomer.roomNo.toString());
-			System.out.println(selectedCustomer.dateInTemp.format(formatter));
-			System.out.println(selectedCustomer.dateOutTemp.format(formatter));
-			//preparedStatement.setString(1, selectedCustomer.roomNo.toString());
-			preparedStatement.setString(1, selectedCustomer.dateInTemp.format(formatter));
-			preparedStatement.setString(2, selectedCustomer.dateOutTemp.format(formatter));
-			preparedStatement.execute();
-		}      
+		   	PreparedStatement pstmt = c.prepareStatement(sql);
+		   	pstmt.setInt(1, selectedCustomer.getRoomNo());
+        	pstmt.setString(2, selectedCustomer.dateInTemp.format(formatter));
+        	pstmt.setString(3, selectedCustomer.dateOutTemp.format(formatter));
+        	pstmt.execute();
+			}	
+			   	        
 		catch (SQLException ex)
 		{
-			ex.printStackTrace();
+		ex.printStackTrace();
 		}
-		finally 
-		{
-			if(preparedStatement!=null)
-				try {
-					c.close();
-					preparedStatement.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-		}
+		list.getItems().clear();
+		loadData(sql_refresh);
+		
 }
 
 	//********************** Other Methods *******************//  
@@ -308,22 +295,29 @@ private void loadData(String sql_input) {
 		
 		}
 		
-		private void addOldList() {
-			String sql_oldList = sql_all.concat(" WHERE CheckInStatus = TRUE AND CheckOutStatus = TRUE");
+		private String addOldList() {
+			String oldList_concat = " WHERE CheckInStatus = TRUE AND CheckOutStatus = TRUE";
+			String sql_oldList = sql_all.concat(oldList_concat);
 			loadData(sql_oldList);
+			return oldList_concat;
 		}
 		
-		private void addBookedList() {
-			String sql_bookedList = sql_all.concat(" WHERE CheckInStatus = FALSE AND CheckOutStatus = FALSE");
+		private String addBookedList() {
+			String bookedList_concat = " WHERE CheckInStatus = FALSE AND CheckOutStatus = FALSE";
+			String sql_bookedList = sql_all.concat(bookedList_concat);
 			loadData(sql_bookedList);
+			return bookedList_concat;
 		}
 		
-		private void addCurrentList() {
-			String sql_currentList = sql_all.concat(" WHERE CheckInStatus = TRUE AND CheckOutStatus = FALSE");
+		private String addCurrentList() {
+			String currentList_concat = " WHERE CheckInStatus = TRUE AND CheckOutStatus = FALSE";
+			String sql_currentList = sql_all.concat(currentList_concat);
 			loadData(sql_currentList);
+			return currentList_concat;
 		}
 		
 		void Reset() {
+			sql_refresh = sql_all;
 			NameTBox.setText("");
 	    	PhNoTBox.setText("");
 	    	RoomNoTBox.setText("");
