@@ -67,7 +67,11 @@ import javafx.stage.Stage;
 	public LoginModel loginModel = new LoginModel();
 	
 	@FXML
-	private Label isConnected;
+	private Label ID;
+	
+
+	@FXML
+	private Label PW;
 	
 	@FXML
 	private TextField txtUsername;
@@ -83,12 +87,7 @@ import javafx.stage.Stage;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		if (loginModel.isDbConnected()) { 
-				//isConnected.setText("Connected");
-		} else{
-				isConnected.setText("Not Connected");
-			 }
+	
 		
 		
 		signBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -104,15 +103,15 @@ import javafx.stage.Stage;
 						app_stage.setY(135);
 						app_stage.setScene(home_page_scene);
 						app_stage.show();
-						
-						
-						isConnected.setText("username and password is correct"); 
+						ReserveController.Reservedata.clear();
 
 					} else {
-						isConnected.setText("Incorrect username and password");
+						ID.setText("(Check your ID and Password)");
+						PW.setText("(Check your ID and Password)");
 						}
 				} catch (SQLException e1) {
-					isConnected.setText("Incorrect username and password"); 							
+					ID.setText("(Incorrect ID and Password)");
+					PW.setText("(Incorrect ID and Password)");
 					e1.printStackTrace();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -139,14 +138,15 @@ import javafx.stage.Stage;
 								app_stage.show();
 								app_stage.setX(180);
 								app_stage.setY(135);
-								
-								isConnected.setText("username and password is correct"); 
+								ReserveController.Reservedata.clear();
 
 							} else {
-								isConnected.setText("Incorrect username and password");
+								ID.setText("(Check your ID and Password)");
+								PW.setText("(Check your ID and Password)");
 								}
 						} catch (SQLException e1) {
-							isConnected.setText("Incorrect username and password"); 							
+							ID.setText("(Incorrect ID and Password)");
+							PW.setText("(Incorrect ID and Password)");
 							e1.printStackTrace();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block

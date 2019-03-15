@@ -42,14 +42,17 @@ import javafx.stage.Stage;
 	    @FXML private TextField cEmail;
 	    @FXML private CheckBox ImmediateCheckInBtn;
   //******************************************//
+		    
+	    int selectedIndex, rowCount;
+	    public  int CIDindex, RIDindex;
+	    public int totalPeople = 0;
+	    public String formattedTime;
 	    
-    int selectedIndex, rowCount;
-    public  int CIDindex, RIDindex;
-    public String formattedTime;
-	SQLinsertcopy sqlInsert = new SQLinsertcopy();
-	CustomerTable cL = new CustomerTable();
-	int checkInStatus = 0;
-	int checkOutStatus = 0;
+		SQLinsertcopy sqlInsert = new SQLinsertcopy();
+		CustomerTable cL = new CustomerTable();
+		
+		int checkInStatus = 0;
+		int checkOutStatus = 0;
 
     //************ Table Column Variables ************//
 	    @FXML private TableView<RoomTemp> reserveList;
@@ -262,30 +265,11 @@ import javafx.stage.Stage;
 	    	if(rowCount > 1) {
 	    		
     			System.out.println("Row Count:" + rowCount);
-    			
-    			//insertRoomInfo2(); 
-    			
-    			for(int a =0; a <= rowCount-1; a++) { // a < 1
-    				
-    				RoomTemp rt2 = reserveList.getItems().get(a);
-        			
-        			Reservedata.get(a).setRoomNo(rt2.getRoomNo());
-        			Reservedata.get(a).setExtraBed(rt2.getExtraBed());
-        			Reservedata.get(a).setDateIn(rt2.getDateIn());
-        			Reservedata.get(a).setDateOut(rt2.getDateOut());
-        			Reservedata.get(a).setNoOfPeople(rt2.getNoOfPeople());
-        			
-    				System.out.println(Reservedata.get(a).getRoomNo());
-    				System.out.println(Reservedata.get(a).getExtraBed());
-    				System.out.println(Reservedata.get(a).getDateIn());
-    				System.out.println(Reservedata.get(a).getDateOut());
-    				System.out.println(Reservedata.get(a).getNoOfPeople());
-    				System.out.println();
-    				
-    				sqlInsert.insertCID(CIDindex, formattedTime);
-        		}
-    			
     			insertRoomInfo2();
+    			System.out.println("TotalPeople:" + totalPeople);	
+    		    sqlInsert.insertCID(CIDindex, formattedTime, totalPeople);
+        		
+    	
         
 	    	} else if ( (rowCount -1) == 0)  { 
 	    				
@@ -293,6 +277,7 @@ import javafx.stage.Stage;
 	    			
 	    			RoomTemp rt2 = reserveList.getItems().get(rowCount-1);
 	    			
+	    			totalPeople = rt2.getNoOfPeople();
 	    			Reservedata.get(0).setRoomNo(rt2.getRoomNo());
 	    			Reservedata.get(0).setExtraBed(rt2.getExtraBed());
 	    			Reservedata.get(0).setDateIn(rt2.getDateIn());
@@ -306,27 +291,30 @@ import javafx.stage.Stage;
     				System.out.println(Reservedata.get(rowCount -1).getNoOfPeople());
 	    	    	
 	    	    	sqlInsert.insertRoomInfo( rt2.getExtraBed(), rt2.getNoOfPeople(), rt2.getRoomNo(), rt2.getDateIn(), rt2.getDateOut(), checkInStatus, checkOutStatus);
-	    	    	sqlInsert.insertCID(CIDindex, formattedTime);
+	    	    	sqlInsert.insertCID(CIDindex, formattedTime, totalPeople);
 	  
 	    }
 	}
 	   
 		public void insertRoomInfo2() {
 			
-			  String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, ExtraBeds, CheckInDate, CheckOutDate, NoOfPeople ) VALUES(?,?,?,?,?)";
+			  String insertRoomQuery = "INSERT INTO Reserved_Room(RoomNo, ExtraBeds, CheckInDate, CheckOutDate, NoOfPeople, CheckInStatus, CheckOutStatus ) VALUES(?,?,?,?,?,?,?)";
 		        
+			  
 		        try (Connection conn =  SqliteConnection.Connector();
 		             PreparedStatement pstmt2 = conn.prepareStatement(insertRoomQuery);)
 		            {	
 		        		for(int a =0; a <= rowCount-1; a++) {
 		        			
+		        			totalPeople += Reservedata.get(a).getNoOfPeople();
 		        			pstmt2.setInt(1, Reservedata.get(a).getRoomNo());
 		        			pstmt2.setInt(2, Reservedata.get(a).getExtraBed());
 		        			pstmt2.setString(3, Reservedata.get(a).getDateIn());
 		        			pstmt2.setString(4, Reservedata.get(a).getDateOut());
 		        			pstmt2.setInt(5, Reservedata.get(a).getNoOfPeople());
+		        			pstmt2.setInt(6, checkInStatus);
+		        			pstmt2.setInt(7, checkOutStatus);
 		        			pstmt2.execute();
-		        		
 		        		}
 		                
 		            } catch (SQLException e) { System.out.println(e.getMessage());}

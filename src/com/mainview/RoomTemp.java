@@ -32,19 +32,13 @@ public class RoomTemp {
 			BedValue.set(bedValue);
 			TotalCharges.set(totalCharges);
 		}
-		//**************************************************************//
-		
-		
-		
-		
 		public RoomTemp() {};
 		public RoomTemp(int roomNo2, String roomType2, int cost2) {
 			// TODO Auto-generated constructor stub
 		}
+		//**************************************************************//
 
-
-
-
+		
 
 		//******************* Getter & Setter Methods ***************//
 		public int getRoomNo() {
@@ -111,8 +105,7 @@ public class RoomTemp {
 		public void setNoOfPeople(int noOfPeople) {
 					this.NoOfPeople.set(noOfPeople);
 				}
-				//******************************************************************//	
-		
+				
 		
 		public int getTotalCharges() {
 			return TotalCharges.get();
@@ -120,7 +113,8 @@ public class RoomTemp {
 		public void setTotalCharges(int totalCharges) {
 			this.TotalCharges.set(totalCharges);
 		}
-		//***************************************************************//
+		//******************************************************************//	
+		
 	}
 
 
