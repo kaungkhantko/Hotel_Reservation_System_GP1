@@ -43,8 +43,6 @@ public class CustomerListController implements Initializable {
           		+ " ON Customer.CustomerID = Reservation_Details.CustomerID"
           		+ " INNER JOIN Reserved_Room"
           		+ " ON Reservation_Details.ReservationID = Reserved_Room.ReservationID";
-	
-		String sql_refresh = sql_all;
 		
 	//************* Other Variables********//
 		@FXML private TextField NameTBox;
@@ -139,17 +137,16 @@ public class CustomerListController implements Initializable {
 	 //******************** Action Event ************************//
     
 	    @FXML void Search(ActionEvent event) {
-	    	sql_refresh = sql_all;
 	    	i = 1;
 	    	list.getItems().clear();
 	    	setCellTable();
 			
 	    	if (check_OldList.isSelected()==true)
-				sql_refresh = sql_refresh.concat(addOldList());
+				addOldList();
 			if (check_CurrentList.isSelected()==true)
-				sql_refresh = sql_refresh.concat(addCurrentList());
+				addCurrentList();
 			if (check_BookedList.isSelected()==true)
-				sql_refresh = sql_refresh.concat(addBookedList());
+				addBookedList();
     }
 	    @FXML void Reset(ActionEvent event) {
 	    	Reset();
@@ -212,7 +209,12 @@ public class CustomerListController implements Initializable {
 		ex.printStackTrace();
 		}
 		list.getItems().clear();
-		loadData(sql_refresh);
+		if (check_OldList.isSelected()==true)
+			addOldList();
+		if (check_CurrentList.isSelected()==true)
+			addCurrentList();
+		if (check_BookedList.isSelected()==true)
+			addBookedList();
 		
 }
 	
@@ -285,28 +287,21 @@ public class CustomerListController implements Initializable {
 		
 		}
 	    
-	    private String addOldList() {
-			String oldList_concat = " WHERE CheckInStatus = TRUE AND CheckOutStatus = TRUE";
-			String sql_oldList = sql_all.concat(oldList_concat);
+	    private void addOldList() {
+			String sql_oldList = sql_all.concat(" WHERE CheckInStatus = TRUE AND CheckOutStatus = TRUE");
 			loadData(sql_oldList);
-			return oldList_concat;
 		}
 		
-		private String addBookedList() {
-			String bookedList_concat = " WHERE CheckInStatus = FALSE AND CheckOutStatus = FALSE";
-			String sql_bookedList = sql_all.concat(bookedList_concat);
+		private void addBookedList() {
+			String sql_bookedList = sql_all.concat(" WHERE CheckInStatus = FALSE AND CheckOutStatus = FALSE");
 			loadData(sql_bookedList);
-			return bookedList_concat;
 		}
 		
-		private String addCurrentList() {
-			String currentList_concat = " WHERE CheckInStatus = TRUE AND CheckOutStatus = FALSE";
-			String sql_currentList = sql_all.concat(currentList_concat);
+		private void addCurrentList() {
+			String sql_currentList = sql_all.concat(" WHERE CheckInStatus = TRUE AND CheckOutStatus = FALSE");
 			loadData(sql_currentList);
-			return currentList_concat;
 		}
 		void Reset() {
-			sql_refresh = sql_all;
 			NameTBox.setText("");
 	    	PhNoTBox.setText("");
 	    	RoomNoTBox.setText("");

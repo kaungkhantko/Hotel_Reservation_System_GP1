@@ -257,7 +257,6 @@ public class RoomsController implements Initializable {
 			} 
 		   	     roomTable.setItems(data);
 		}
-		
 	    public void fillComboBox() {
 	    	RoomTypeCombo.getItems().add("Any");
 	    	    String sql  = "SELECT RoomType from Room_Type";
@@ -293,7 +292,6 @@ public class RoomsController implements Initializable {
 			else
 				availability = "Available";
 	    }
-	    
 	    public void reset() {
 	    	
 	    	i=1;

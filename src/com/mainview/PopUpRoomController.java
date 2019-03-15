@@ -71,8 +71,10 @@ public class PopUpRoomController implements Initializable{
 		   Main.primaryStage.setScene(pop_up_scene);
 		
     }
-
-	  
+    //******************** Action Events ***********************//    
+	    
+	    
+	    
 	    
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
@@ -80,6 +82,8 @@ public class PopUpRoomController implements Initializable{
 			addSpinnerValues();
 			
 		}
+		
+		
 		
 		
 		//********************* Getter & Setter Methods***************//
@@ -97,6 +101,7 @@ public class PopUpRoomController implements Initializable{
 			this.PersonSpinner = personSpinner;
 		}
 	//********************* ************************s***************//
+		 
 		 
 		 
 		 

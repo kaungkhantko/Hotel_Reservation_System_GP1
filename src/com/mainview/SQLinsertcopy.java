@@ -49,26 +49,22 @@ public class SQLinsertcopy{
                 
             } catch (SQLException e) { System.out.println(e.getMessage());}
 	}    
-	
-
-	
-	
-	public void insertCID (int CID, String reservedTime) {
+	public void insertCID (int CID, String reservedTime, int totalPeople) {
 		
-		   String insertIDQuery = "INSERT INTO Reservation_Details (CustomerID, ReservedTime) VALUES(?,?);";
+		   String insertIDQuery = "INSERT INTO Reservation_Details (CustomerID, ReservedTime, TotalPeople) VALUES(?,?,?);";
 		    
 	        try (Connection conn = this.connect();
 	            PreparedStatement pstmt = conn.prepareStatement(insertIDQuery);)
 	        {
 		  	        pstmt.setInt(1, CID);
 		  	        pstmt.setString(2, reservedTime);
+		  	        pstmt.setInt(3, totalPeople);
 	                pstmt.execute();
 	                
-	                System.out.println("CID added and reservedTime added");
+	                System.out.println("CID added, reservedTime, totalPeople added");
 	                
 	        } catch (SQLException e) { System.out.println(e.getMessage()); }
 	}
-	
 	public void insertRID (int RID, int roomNO) {
 		
 		   String insertIDQuery = "UPDATE Reserved_Room SET ReservationID = ? WHERE	RoomNo = ?";
@@ -85,7 +81,6 @@ public class SQLinsertcopy{
 	        } catch (SQLException e) { System.out.println(e.getMessage()); }
 		
 	}
-		
 	public void insertCInfo(String name, String NRC, String Ph1, String Ph2, String Email ) {
 		
 		String insertCustomerQuery = "INSERT INTO Customer(CustomerName,NRC,PhoneNumber1,PhoneNumber2,Email) VALUES(?,?,?,?,?)";
@@ -107,6 +102,8 @@ public class SQLinsertcopy{
 		
 		
 	}
+	
+	
 	
 	public static void main(String[] args) throws SQLException {
 	    	connect();

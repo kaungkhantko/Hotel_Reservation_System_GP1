@@ -69,15 +69,16 @@ public class SQLinsert{
 	}    
 	
 	
-	public void insertCID (int CID, String reservedTime) {
+	public void insertCID (int CID, String reservedTime, int totalPeople) {
 		
-		   String insertIDQuery = "INSERT INTO Reservation_Details (CustomerID, ReservedTime) VALUES(?,?);";
+		   String insertIDQuery = "INSERT INTO Reservation_Details (CustomerID, ReservedTime, TotalPeople) VALUES(?,?,?);";
 		    
 	        try (Connection conn = this.connect();
 	            PreparedStatement pstmt = conn.prepareStatement(insertIDQuery);)
 	        {
 		  	        pstmt.setInt(1, CID);
 		  	        pstmt.setString(2, reservedTime);
+		  	        pstmt.setInt(3, totalPeople);
 	                pstmt.execute();
 	                
 	                System.out.println("CID added and reservedTime added");
