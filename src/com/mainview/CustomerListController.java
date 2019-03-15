@@ -36,16 +36,16 @@ import javafx.stage.Stage;
 
 
 public class CustomerListController implements Initializable {
-	
-	String sql_all = "SELECT *"
+		
+		String sql_all = "SELECT *"
           		+ " FROM Customer"
           		+ " INNER JOIN Reservation_Details"
           		+ " ON Customer.CustomerID = Reservation_Details.CustomerID"
           		+ " INNER JOIN Reserved_Room"
           		+ " ON Reservation_Details.ReservationID = Reserved_Room.ReservationID";
 	
-	String sql_refresh = sql_all;
-	
+		String sql_refresh = sql_all;
+		
 	//************* Other Variables********//
 		@FXML private TextField NameTBox;
 	    @FXML private TextField PhNoTBox;
@@ -70,30 +70,26 @@ public class CustomerListController implements Initializable {
 	    @FXML private TableColumn<?, ?> ColumnStatus;
 	    @FXML private TableColumn<?, ?> ColumnActualCheckOutD;
     //*************************************************//
-    
-	int i=1;
-	String name;
-    String phNo;
-	String roomNo;
-	String dateIn, dateOut;
-	String status;
-	Customer selectedCustomer;
-	String check;
-	public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	
-	
-	@FXML private ContextMenu contextMenu;
-	@FXML private MenuItem checkIn;
-	@FXML private MenuItem checkOut;
-	
-	//MenuItem checkIn = new MenuItem("Check In");
-	//MenuItem checkOut = new MenuItem("Check Out");
+    	
+		int i=1;
+		String name;
+	    String phNo;
+		String roomNo;
+		String dateIn, dateOut;
+		String status;
+		Customer selectedCustomer;
+		String check;
+		
+		@FXML private ContextMenu contextMenu;
+		@FXML private MenuItem checkIn;
+		@FXML private MenuItem checkOut;
+		
+		public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		    
+	    @FXML
+	    private ObservableList<Customer> Customerdata = FXCollections.observableArrayList();
 	    
-    @FXML
-    private ObservableList<Customer> Customerdata = FXCollections.observableArrayList();
-    
-    
-    
+	    
     
     //*************************** Show Side Bar *************************//
 	    @FXML private void goCustomerListPage(ActionEvent event) throws IOException {
@@ -148,15 +144,13 @@ public class CustomerListController implements Initializable {
 	    	list.getItems().clear();
 	    	setCellTable();
 			
-			if (check_OldList.isSelected()==true)
+	    	if (check_OldList.isSelected()==true)
 				sql_refresh = sql_refresh.concat(addOldList());
 			if (check_CurrentList.isSelected()==true)
 				sql_refresh = sql_refresh.concat(addCurrentList());
 			if (check_BookedList.isSelected()==true)
 				sql_refresh = sql_refresh.concat(addBookedList());
-			
-	    }
-	    
+    }
 	    @FXML void Reset(ActionEvent event) {
 	    	Reset();
 	    }
@@ -170,15 +164,17 @@ public class CustomerListController implements Initializable {
 	    	check = "Check Out";
 			Update();
 	    }
+	    
 	 //********************************************************************//
 	    
 	    
  
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+		public void initialize(URL location, ResourceBundle resources) {
 		
 		Reset();
 		contextMenu.setAutoHide(true);
+		
 		
 		list.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() 
 		{
@@ -219,7 +215,8 @@ public class CustomerListController implements Initializable {
 		loadData(sql_refresh);
 		
 }
-
+	
+	
 	//********************** Other Methods *******************//  
 	    private void setCellTable() {
 			
@@ -234,8 +231,7 @@ public class CustomerListController implements Initializable {
 			ColumnActualCheckOutD.setCellValueFactory(new PropertyValueFactory<>("actualDateOut"));
 			
 		}
-		
-private void loadData(String sql_input) {
+	    private void loadData(String sql_input) {
 			
 			
 			String sql = sql_input;
@@ -288,8 +284,8 @@ private void loadData(String sql_input) {
 		   	     list.setItems(Customerdata);
 		
 		}
-		
-		private String addOldList() {
+	    
+	    private String addOldList() {
 			String oldList_concat = " WHERE CheckInStatus = TRUE AND CheckOutStatus = TRUE";
 			String sql_oldList = sql_all.concat(oldList_concat);
 			loadData(sql_oldList);
@@ -309,7 +305,6 @@ private void loadData(String sql_input) {
 			loadData(sql_currentList);
 			return currentList_concat;
 		}
-		
 		void Reset() {
 			sql_refresh = sql_all;
 			NameTBox.setText("");
@@ -325,11 +320,7 @@ private void loadData(String sql_input) {
 			Customerdata = FXCollections.observableArrayList();
 			loadData(sql_all);	
 		}
-		
    //*********************************************************************//
-
-
-
 
 
 }
